@@ -1,0 +1,4 @@
+/* 仅修改浅色模式的背景颜色 */
+body[data-md-color-scheme="default"] {
+    --md-default-bg-color: #FAF6EE;
+}
