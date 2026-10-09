@@ -1,16 +1,13 @@
-# Python 虚拟环境
+# Python virtual environment and generated site
 .venv/
-
-# MkDocs 生成的网站文件
 site/
-
-# Python 缓存
 __pycache__/
 *.pyc
 
-# VS Code 本地配置
-.vscode/
+# Share just the VS Code automatic task definitions
+.vscode/*
+!.vscode/tasks.json
 
-# 系统临时文件
+# Operating system files
 .DS_Store
 Thumbs.db
