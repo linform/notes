@@ -1,4 +1,207 @@
-/* 仅修改浅色模式的背景颜色 */
+/*
+ * Flexoki Light for Material for MkDocs
+ * Palette: https://stephango.com/flexoki
+ * Target: body[data-md-color-scheme="default"] ONLY.
+ * Material's slate/dark palette remains unchanged.
+ * Replace docs/stylesheets/extra.css with this file.
+ */
+
+/* 1. Full, coherent Flexoki color tokens (light scheme only) */
 body[data-md-color-scheme="default"] {
-    --md-default-bg-color: #FAF6EE;
+  --flexoki-paper: #fffcf0;
+  --flexoki-bg-2: #f2f0e5;
+  --flexoki-ui: #e6e4d9;
+  --flexoki-ui-2: #dad8ce;
+  --flexoki-ui-3: #cecdc3;
+  --flexoki-muted: #6f6e69;
+  --flexoki-faint: #878580;
+  --flexoki-ink: #100f0f;
+  --flexoki-ink-2: #403e3c;
+  --flexoki-orange: #bc5215;
+  --flexoki-orange-hover: #9d4310;
+  --flexoki-blue: #205ea6;
+  --flexoki-green: #66800b;
+
+  /* Base page colors */
+  --md-default-bg-color: var(--flexoki-paper);
+  --md-default-bg-color--light: rgba(255, 252, 240, 0.72);
+  --md-default-bg-color--lighter: rgba(255, 252, 240, 0.54);
+  --md-default-bg-color--lightest: rgba(255, 252, 240, 0.25);
+  --md-default-fg-color: var(--flexoki-ink);
+  --md-default-fg-color--light: var(--flexoki-muted);
+  --md-default-fg-color--lighter: var(--flexoki-faint);
+  --md-default-fg-color--lightest: var(--flexoki-ui-3);
+
+  /* Header and links: graphite + orange pigment */
+  --md-primary-fg-color: var(--flexoki-ink-2);
+  --md-primary-fg-color--light: #575653;
+  --md-primary-fg-color--dark: #282726;
+  --md-primary-bg-color: var(--flexoki-paper);
+  --md-primary-bg-color--light: rgba(255, 252, 240, 0.74);
+  --md-accent-fg-color: var(--flexoki-orange);
+  --md-accent-fg-color--transparent: rgba(188, 82, 21, 0.13);
+  --md-accent-bg-color: var(--flexoki-paper);
+  --md-accent-bg-color--light: rgba(255, 252, 240, 0.74);
+  --md-typeset-a-color: var(--flexoki-orange);
+
+  /* Code, syntax, and highlighted lines */
+  --md-code-bg-color: var(--flexoki-bg-2);
+  --md-code-fg-color: var(--flexoki-ink-2);
+  --md-code-hl-color: rgba(218, 112, 44, 0.20);
+  --md-code-hl-color--light: rgba(218, 112, 44, 0.10);
+  --md-code-hl-number-color: #bc5215;
+  --md-code-hl-special-color: #a02f6f;
+  --md-code-hl-function-color: #205ea6;
+  --md-code-hl-constant-color: #5e409d;
+  --md-code-hl-keyword-color: #af3029;
+  --md-code-hl-string-color: #66800b;
+  --md-code-hl-name-color: #100f0f;
+  --md-code-hl-operator-color: #575653;
+  --md-code-hl-punctuation-color: #575653;
+  --md-code-hl-comment-color: #878580;
+  --md-code-hl-generic-color: #6f6e69;
+  --md-code-hl-variable-color: #24837b;
+
+  /* Footer and miscellaneous Material surfaces */
+  --md-footer-bg-color: #403e3c;
+  --md-footer-bg-color--dark: #282726;
+  --md-footer-fg-color: #fffcf0;
+  --md-footer-fg-color--light: rgba(255, 252, 240, 0.75);
+  --md-footer-fg-color--lighter: rgba(255, 252, 240, 0.55);
+  --md-typeset-table-color: var(--flexoki-ui-3);
+  --md-typeset-table-color--light: var(--flexoki-ui);
+}
+
+/* 2. Main page, headings, text links and current navigation */
+body[data-md-color-scheme="default"] .md-main,
+body[data-md-color-scheme="default"] .md-content,
+body[data-md-color-scheme="default"] .md-sidebar {
+  background-color: var(--flexoki-paper);
+}
+
+body[data-md-color-scheme="default"] .md-typeset h1,
+body[data-md-color-scheme="default"] .md-typeset h2,
+body[data-md-color-scheme="default"] .md-typeset h3,
+body[data-md-color-scheme="default"] .md-typeset h4,
+body[data-md-color-scheme="default"] .md-typeset h5,
+body[data-md-color-scheme="default"] .md-typeset h6 {
+  color: var(--flexoki-ink-2);
+}
+
+body[data-md-color-scheme="default"] .md-typeset a:hover,
+body[data-md-color-scheme="default"] .md-nav__link:hover,
+body[data-md-color-scheme="default"] .md-nav__link--active,
+body[data-md-color-scheme="default"] .md-nav__item .md-nav__link--active,
+body[data-md-color-scheme="default"] .md-tabs__link:hover {
+  color: var(--flexoki-orange-hover);
+}
+
+/* Header / tabs keep their current dimensions and behavior */
+body[data-md-color-scheme="default"] .md-header,
+body[data-md-color-scheme="default"] .md-tabs {
+  background-color: var(--flexoki-ink-2);
+}
+
+/* Keep top tab labels legible on the dark graphite bar */
+body[data-md-color-scheme="default"] .md-tabs__link:hover,
+body[data-md-color-scheme="default"] .md-tabs__link--active {
+  color: var(--flexoki-paper);
+}
+
+/* 3. Search input, dropdown, results and matching terms */
+body[data-md-color-scheme="default"] .md-search__form {
+  background-color: var(--flexoki-bg-2);
+}
+
+body[data-md-color-scheme="default"] .md-search__form .md-search__input,
+body[data-md-color-scheme="default"] .md-search__form .md-search__icon {
+  color: var(--flexoki-ink-2);
+}
+
+body[data-md-color-scheme="default"] .md-search__input::placeholder {
+  color: var(--flexoki-muted);
+  opacity: 1;
+}
+
+body[data-md-color-scheme="default"] .md-search__output,
+body[data-md-color-scheme="default"] .md-search__scrollwrap,
+body[data-md-color-scheme="default"] .md-search-result {
+  background-color: var(--flexoki-paper);
+  color: var(--flexoki-ink-2);
+}
+
+body[data-md-color-scheme="default"] .md-search-result__meta {
+  background-color: var(--flexoki-bg-2);
+  color: var(--flexoki-muted);
+}
+
+body[data-md-color-scheme="default"] .md-search-result__article:hover,
+body[data-md-color-scheme="default"] .md-search-result__article:focus-within {
+  background-color: var(--flexoki-bg-2);
+}
+
+body[data-md-color-scheme="default"] .md-search-result mark,
+body[data-md-color-scheme="default"] .md-typeset mark {
+  background-color: #ffe7ce;
+  color: var(--flexoki-ink);
+}
+
+/* 4. Code blocks, inline code and copy toolbar */
+body[data-md-color-scheme="default"] .md-typeset code,
+body[data-md-color-scheme="default"] .md-typeset pre,
+body[data-md-color-scheme="default"] .md-typeset .highlight,
+body[data-md-color-scheme="default"] .md-typeset .highlighttable {
+  background-color: var(--flexoki-bg-2);
+}
+
+body[data-md-color-scheme="default"] .md-typeset .highlight .filename,
+body[data-md-color-scheme="default"] .md-typeset .highlighttable .filename {
+  background-color: var(--flexoki-ui);
+  color: var(--flexoki-ink-2);
+}
+
+body[data-md-color-scheme="default"] .md-clipboard,
+body[data-md-color-scheme="default"] .md-clipboard:hover {
+  color: var(--flexoki-muted);
+}
+
+/* 5. Tables and separators (same sizing as Material) */
+body[data-md-color-scheme="default"] .md-typeset table:not([class]) {
+  background-color: var(--flexoki-paper);
+  border-color: var(--flexoki-ui-3);
+}
+
+body[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  background-color: var(--flexoki-bg-2);
+  color: var(--flexoki-ink-2);
+}
+
+body[data-md-color-scheme="default"] .md-typeset table:not([class]) td,
+body[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  border-color: var(--flexoki-ui-3);
+}
+
+body[data-md-color-scheme="default"] .md-typeset table:not([class]) tr:hover {
+  background-color: var(--flexoki-bg-2);
+}
+
+body[data-md-color-scheme="default"] .md-typeset hr {
+  border-color: var(--flexoki-ui-3);
+}
+
+/* 6. Block quotes and notes: preserve any existing icons and layouts */
+body[data-md-color-scheme="default"] .md-typeset blockquote {
+  color: var(--flexoki-muted);
+  border-left-color: var(--flexoki-ui-2);
+}
+
+body[data-md-color-scheme="default"] .md-typeset .admonition,
+body[data-md-color-scheme="default"] .md-typeset details {
+  background-color: var(--flexoki-paper);
+}
+
+/* 7. Subtle selection color */
+body[data-md-color-scheme="default"] ::selection {
+  background-color: #fed3af;
+  color: var(--flexoki-ink);
 }
