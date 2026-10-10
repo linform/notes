@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import time
 import unittest
 
 
@@ -51,10 +52,10 @@ class AutoSyncTests(unittest.TestCase):
                            ('commit.gpgsign', 'false'), ('core.hooksPath', str(self.root / 'no-hooks'))]:
             self.run_git(directory, 'config', key, value)
 
-    def sync(self):
+    def sync(self, cwd=None):
         return subprocess.run(
             [POWERSHELL, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-             str(self.work / 'auto-sync.ps1'), '-Once'], cwd=self.work, env=self.env,
+             str(self.work / 'auto-sync.ps1'), '-Once'], cwd=cwd or self.work, env=self.env,
             capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=40,
         )
 
@@ -74,6 +75,7 @@ class AutoSyncTests(unittest.TestCase):
         result = self.sync()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('Pushed and verified main', result.stdout)
+        self.assertNotIn('NativeCommandError', result.stdout + result.stderr)
         self.assertEqual(self.remote_head(), self.git('rev-parse', 'HEAD'))
         self.assertNotEqual(self.remote_head(), self.initial)
         self.assertEqual(self.git('diff', '--cached', '--name-only'), 'requirements.txt')
@@ -105,6 +107,40 @@ class AutoSyncTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('No pending commits', result.stdout)
         self.assertEqual(self.git('rev-parse', 'HEAD'), self.initial)
+
+    def test_duplicate_worker_is_blocked_and_recovers_after_exit(self):
+        # Keep one real worker idle while a second process attempts to sync.
+        with (self.root / 'worker.log').open('w+', encoding='utf-8') as log:
+            worker = subprocess.Popen(
+                [POWERSHELL, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
+                 str(self.work / 'auto-sync.ps1'), '-IntervalSeconds', '86400'],
+                cwd=self.work, env=self.env, stdout=log, stderr=subprocess.STDOUT,
+            )
+            try:
+                deadline = time.monotonic() + 15
+                while time.monotonic() < deadline:
+                    log.seek(0)
+                    output = log.read()
+                    if 'Checking docs/' in output:
+                        break
+                    self.assertIsNone(worker.poll(), output)
+                    time.sleep(0.1)
+                else:
+                    self.fail('Worker did not start: ' + output)
+                self.change_notes()
+                before = self.git('status', '--porcelain')
+                duplicate = self.sync(cwd=self.root)
+                self.assertEqual(duplicate.returncode, 1, duplicate.stdout + duplicate.stderr)
+                self.assertIn('already running', duplicate.stdout)
+                self.assertEqual(self.git('status', '--porcelain'), before)
+                self.assertEqual(self.remote_head(), self.initial)
+            finally:
+                worker.terminate()
+                worker.wait(timeout=10)
+
+        recovered = self.sync()
+        self.assertEqual(recovered.returncode, 0, recovered.stdout + recovered.stderr)
+        self.assertEqual(self.remote_head(), self.git('rev-parse', 'HEAD'))
 
     def test_unwatched_changes_stay_uncommitted(self):
         (self.work / 'requirements.txt').write_text('changed\n', encoding='utf-8')
