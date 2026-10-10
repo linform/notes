@@ -1,14 +1,7 @@
----
-search:
-  exclude: true
----
-
-> 这是为兼容旧链接保留的历史版本。请阅读[最新 Markdown 使用手册](Markdown使用说明.md)。
-
 # Markdown 日常笔记使用手册
 
 > 适用环境：Windows + VS Code + MkDocs Material + GitHub Pages  
-> 本文可直接保存在 `C:\Users\10433\notes\docs\Markdown使用说明.md`，作为网站中的一篇笔记。  
+> 本文位于项目的 `docs/Markdown使用说明.md`，可从网站左上角的三横菜单访问。  
 > **阅读方法**：每节先看 Markdown 写法，再看说明。带有「需要额外配置」的语法目前不一定能在你的网站中按预期显示。
 
 ---
@@ -40,7 +33,7 @@ search:
 正文写在这里。
 ~~~
 
-渲染后，MkDocs 会根据标题生成页面右侧目录；左侧导航主要依据 `docs/` 中的文件组织。
+渲染后，MkDocs 会根据标题生成页面右侧目录；左侧导航由 `mkdocs.yml` 的 `nav` 控制。新增文章后，记得将其加入导航。
 
 **建议：**
 
@@ -80,8 +73,8 @@ search:
 - 晶格常数
 - 晶面间距
 - 倒易点阵
-  - 倒易基矢
-  - 第一布里渊区
+    - 倒易基矢
+    - 第一布里渊区
 ~~~
 
 ### 3.2 有序列表
@@ -151,13 +144,13 @@ print(x.mean())
 例如 PowerShell：
 
 ~~~powershell
-cd C:\Users\10433\notes
-mkdocs serve
+# 在项目根目录执行
+powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 ~~~
 
 你的网站已启用 MkDocs Material 的代码复制按钮。
 
-## 6. 数学公式（已配置 MathJax）
+## 6. 数学公式（已配置 MathJax） {#math}
 
 这是科研笔记最实用的功能之一。你当前网站已配置 `pymdownx.arithmatex` 和 MathJax。
 
@@ -303,7 +296,7 @@ MkDocs 会在构建时处理这些指向 Markdown 文件的相对链接。文件
 
 DOI 示意文字只是占位符，正式笔记要替换成真实 DOI。
 
-## 9. 插入图片（最重要的路径规则）
+## 9. 插入图片（最重要的路径规则） {#images}
 
 ### 9.1 推荐目录
 
@@ -349,7 +342,7 @@ notes/
 **图 1.** 不同样品的 XRD 图谱（数据来源：本人实验；处理方法：背景扣除后归一化）。
 ~~~
 
-## 10. 一份可直接套用的科研／课程笔记模板
+## 10. 一份可直接套用的科研／课程笔记模板 {#template}
 
 新建一个 Markdown 文件，把下面内容复制进去即可。
 
@@ -438,11 +431,11 @@ notes/
 
 ### 12.1 每天怎么写
 
-1. 用 VS Code 打开 `C:\Users\10433\notes` 文件夹。
-2. 在 `docs/` 下创建或打开 `.md` 文件。
+1. 用 VS Code 打开项目根目录；首次使用先按仓库 README 创建 `.venv` 并安装依赖。
+2. 在 `docs/` 下创建或打开 `.md` 文件；新文章同时加入 `mkdocs.yml` 的 `nav`。
 3. 按 `Ctrl + S` 保存（如需减少手动保存，可在 VS Code 启用自动保存）。
 4. 在本地网页查看最终排版；以运行终端显示的地址为准，你当前配置下通常是 `http://127.0.0.1:8000/notes/`。
-5. VS Code 自动任务会检查修改，约每 60 秒提交、推送一次；GitHub Actions 随后自动部署网站。
+5. 启用 VS Code 自动任务后，同步脚本仅在 `main` 分支每 60 秒检查一次，提交笔记并核验推送；GitHub Actions 检查通过后部署网站。分离 HEAD 或其他分支不会自动提交、推送。
 
 在线地址：<https://linform.github.io/notes/>
 
@@ -467,7 +460,9 @@ notes/
 - `MkDocs: Start live preview`：本地网站构建是否成功。
 - `Git: Automatically sync notes`：是否输出推送成功信息。
 
-如果 Git 推送失败，不要直接强制推送或删除 `.git`。先检查终端报错。若远程和本地历史发生冲突，应先手动处理后再恢复自动同步。
+如果 Git 推送失败，不要直接强制推送或删除 `.git`。先检查终端报错。若远程和本地历史发生冲突，应先手动处理后再恢复自动同步。脚本会保留本地提交，但不会自动拉取或合并。
+
+脚本只自动提交 `docs/` 和 `mkdocs.yml`。修改依赖、README、脚本或工作流后需要手工提交。终端确认推送完成后，还需到 GitHub Actions 检查部署结果。
 
 ## 13. 进阶扩展（当前尚未启用，可选）
 
@@ -517,7 +512,7 @@ notes/
 | 修改后网页没有变化 | 文件是否保存？MkDocs 任务是否在运行？ |
 | 公式原样显示 `$...$` | 检查 `pymdownx.arithmatex`、MathJax 脚本和浏览器网络连接 |
 | 图片不显示 | 检查图片是否在 `docs/` 中、相对路径和文件名大小写是否正确 |
-| 网站没有新增文章 | 新 `.md` 是否在 `docs/` 下？是否已推送并完成 Pages 部署？ |
+| 网站没有新增文章 | 新 `.md` 是否在 `docs/` 下并加入 `nav`？是否已推送并完成 Pages 部署？ |
 | GitHub 没更新 | 查看 `Git: Automatically sync notes` 任务输出 |
 | 任务列表没变复选框 | 当前尚未启用 `pymdownx.tasklist` |
 | 提示框语法未生效 | 当前尚未启用 `admonition`、`pymdownx.details` |

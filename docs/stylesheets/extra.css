@@ -205,3 +205,331 @@ body[data-md-color-scheme="default"] ::selection {
   background-color: #fed3af;
   color: var(--flexoki-ink);
 }
+
+/* Keep the article navigation in a drawer on desktop as well.
+ * Material already supplies the drawer toggle, backdrop and mobile layout.
+ * The secondary sidebar (page contents) keeps its normal responsive behavior.
+ */
+@media screen and (min-width: 76.25em) {
+  .md-header__button[for="__drawer"] {
+    display: inline-block;
+  }
+
+  .md-header__button.md-logo {
+    display: none;
+  }
+
+  .md-sidebar--primary {
+    position: fixed;
+    top: 0 !important; /* Override the theme's inline sticky offset. */
+    left: -12.1rem;
+    width: 12.1rem;
+    height: 100% !important;
+    padding: 0;
+    background-color: var(--md-default-bg-color);
+    transform: translateX(0);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .25s cubic-bezier(.4, 0, .2, 1), visibility .25s;
+    z-index: 6;
+  }
+
+  [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary {
+    box-shadow: var(--md-shadow-z3);
+    transform: translateX(12.1rem);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Nested theme navigation may set visibility explicitly. */
+  [data-md-toggle="drawer"]:not(:checked) ~ .md-container .md-sidebar--primary * {
+    visibility: hidden;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    height: 100% !important; /* The theme otherwise sizes this to the article. */
+    margin: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .md-sidebar--primary .md-sidebar__inner {
+    width: auto;
+    padding: 0;
+  }
+
+  .md-nav--primary > .md-nav__title {
+    position: relative;
+    padding: 1rem .8rem;
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+    cursor: pointer;
+  }
+
+  .md-nav--primary > .md-nav__title::after {
+    content: "\00d7";
+    float: right;
+    font-size: 1rem;
+  }
+
+  .md-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #0000008a;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s, visibility .25s;
+    z-index: 5;
+  }
+
+  [data-md-toggle="drawer"]:checked ~ .md-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media screen and (min-width: 76.25em) and (prefers-reduced-motion: reduce) {
+  .md-sidebar--primary,
+  .md-overlay {
+    transition: none;
+  }
+}
+
+/* Reduce wide-screen outer margins; the fixed-width contents sidebar stays compact. */
+.md-grid {
+  max-width: 68rem;
+}
+
+/* Give the article a little more room while keeping the desktop contents visible. */
+.notes-toc-toggle {
+  display: none;
+}
+
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary {
+    width: 10.5rem;
+  }
+
+  .md-sidebar--secondary .md-sidebar__scrollwrap {
+    border-left: 1px solid var(--md-default-fg-color--lightest);
+    padding-left: .6rem;
+  }
+
+  .notes-toc .md-nav--secondary > .md-nav__title {
+    min-height: 1.6rem;
+    padding-right: 3.7rem;
+  }
+
+  .notes-toc-toggle {
+    position: absolute;
+    top: 1.15rem;
+    right: .4rem;
+    z-index: 2;
+    display: block;
+    padding: .25rem .4rem;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: .25rem;
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color--light);
+    font: inherit;
+    font-size: .6rem;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  .notes-toc-toggle:hover {
+    color: var(--md-default-fg-color);
+    border-color: currentColor;
+  }
+
+  .notes-toc-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .md-sidebar--secondary.notes-toc--collapsed {
+    width: 2rem;
+  }
+
+  .notes-toc--collapsed .md-sidebar__scrollwrap {
+    display: none;
+  }
+
+  .notes-toc--collapsed .notes-toc-toggle {
+    right: .2rem;
+    width: 1.6rem;
+    padding: .5rem .4rem;
+    line-height: 1.6;
+    word-break: break-all;
+  }
+}
+
+/* The landing page is a file chooser; article sidebars remain unchanged. */
+body:has(.notes-home) .md-header__button[for="__drawer"] {
+  display: none;
+}
+
+body:has(.notes-home) .md-header__button.md-logo {
+  display: inline-block;
+}
+
+.md-typeset .notes-home {
+  --notes-home-accent: var(--md-accent-fg-color);
+  max-width: 52rem;
+  margin: 2.8rem auto 3rem;
+}
+
+body[data-md-color-scheme="slate"] .notes-home {
+  --notes-home-accent: #a9b5ff;
+}
+
+.md-typeset .notes-home a {
+  color: var(--notes-home-accent);
+}
+
+.notes-home__intro {
+  margin-bottom: 3rem;
+}
+
+.notes-home__eyebrow,
+.notes-file__type {
+  color: var(--notes-home-accent);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+
+.md-typeset .notes-home h1 {
+  margin: .6rem 0 .8rem;
+  color: var(--md-default-fg-color);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 650;
+  letter-spacing: -.04em;
+}
+
+.notes-home__intro p {
+  color: var(--md-default-fg-color--light);
+  line-height: 1.9;
+}
+
+.md-typeset .notes-home h2 {
+  margin: 0 0 1rem;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.notes-home .headerlink {
+  display: none;
+}
+
+.notes-home__files {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.notes-file {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .65rem;
+  background: var(--md-code-bg-color);
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.notes-file:hover,
+.notes-file:focus-within {
+  border-color: var(--notes-home-accent);
+  box-shadow: 0 .25rem 1rem #0000000a;
+}
+
+.md-typeset .notes-file h3 {
+  margin: .7rem 0 .4rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.md-typeset .notes-file h3 a {
+  color: var(--md-default-fg-color);
+}
+
+.notes-file h3 a::after {
+  position: absolute;
+  inset: 0;
+  border-radius: .65rem;
+  content: "";
+}
+
+.notes-file h3 a:focus-visible {
+  outline: none;
+}
+
+.notes-file h3 a:focus-visible::after {
+  outline: 2px solid var(--notes-home-accent);
+  outline-offset: 3px;
+}
+
+.notes-file p {
+  margin: .4rem 0 1.8rem;
+  color: var(--md-default-fg-color--light);
+  font-size: .75rem;
+  line-height: 1.8;
+}
+
+.notes-file > p:first-child {
+  margin: 0;
+}
+
+.notes-file__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-top: auto;
+  font-size: .6rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.notes-file__bottom span:last-child {
+  color: var(--notes-home-accent);
+}
+
+.notes-home__shortcuts {
+  margin-top: 1.4rem;
+  font-size: .7rem;
+  line-height: 2;
+}
+
+.notes-home__footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light);
+  font-size: .65rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .notes-home {
+    margin-top: 1.2rem;
+  }
+
+  .notes-home__intro {
+    margin-bottom: 2rem;
+  }
+
+  .notes-home__files {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-file {
+    padding: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes-file {
+    transition: none;
+  }
+}

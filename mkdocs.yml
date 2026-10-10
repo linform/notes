@@ -1,9 +1,24 @@
 site_name: 我的学习笔记
 site_url: https://linform.github.io/notes/
+site_description: 学习笔记、公式推导与 Markdown 写作指南。
+
+nav:
+  - 首页: index.md
+  - 写作指南:
+      - Markdown 使用手册: Markdown使用说明.md
+
+not_in_nav: |
+  /原神.md
+  /test.md
+
+validation:
+  links:
+    anchors: warn
 
 theme:
   name: material
   language: zh
+  font: false
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -35,7 +50,11 @@ plugins:
 
 markdown_extensions:
   - tables
-  - fenced_code
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences
   - attr_list
   - md_in_html
   - toc:
@@ -44,6 +63,7 @@ markdown_extensions:
       generic: true
 
 extra_javascript:
+  - javascripts/toc-toggle.js
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
