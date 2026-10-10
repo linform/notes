@@ -451,7 +451,7 @@ notes/
 | 命令面板 | `Ctrl + Shift + P` |
 | 打开 Markdown 预览 | `Ctrl + Shift + V` |
 | 预览到侧边 | 先 `Ctrl + K`，再按 `V` |
-| 显示／隐藏终端 | `Ctrl + \`` |
+| 显示／隐藏终端 | <kbd>Ctrl</kbd> + <kbd>&#96;</kbd>（反引号） |
 
 ### 12.3 自动同步失败怎么办
 
