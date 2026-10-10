@@ -4,8 +4,12 @@
     {
       "label": "MkDocs: Start live preview",
       "type": "process",
-      "command": "${workspaceFolder}\\.venv\\Scripts\\mkdocs.exe",
-      "args": ["serve"],
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}\\start-preview.ps1"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
       "isBackground": true,
       "problemMatcher": [],
