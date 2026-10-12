@@ -17,7 +17,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 function Test-SyncState {
     $branch = git symbolic-ref --quiet HEAD 2>$null
     if ($LASTEXITCODE -ne 0 -or $branch -ne 'refs/heads/main') {
-        Write-Warning '[Auto Sync] Sync requires the main branch. Detached HEAD and other branches are skipped without staging or committing.'
+        Write-Warning '[Auto Sync] Sync requires the main branch. Detached HEAD and other branches are skipped without staging or committing. To publish a completed worktree, run publish-notes.ps1.'
         return $false
     }
 
@@ -119,6 +119,22 @@ function Invoke-NotesSync {
     return $true
 }
 
+function Invoke-SerializedNotesSync {
+    $ownsOperation = $false
+    try {
+        try { $ownsOperation = $operationMutex.WaitOne(30000) }
+        catch [Threading.AbandonedMutexException] { $ownsOperation = $true }
+        if (-not $ownsOperation) {
+            Write-Warning '[Auto Sync] Another sync operation is running. Retrying later.'
+            return $false
+        }
+        return Invoke-NotesSync
+    }
+    finally {
+        if ($ownsOperation) { $operationMutex.ReleaseMutex() }
+    }
+}
+
 if (-not (Test-SyncState)) { exit 1 }
 
 # Share a lock across processes and linked worktrees in this Windows session.
@@ -132,6 +148,7 @@ try {
 }
 finally { $hasher.Dispose() }
 $syncMutex = [Threading.Mutex]::new($false, "Local\NotesAutoSync-$lockHash")
+$operationMutex = [Threading.Mutex]::new($false, "Local\NotesSyncOperation-$lockHash")
 $ownsLock = $false
 try {
     try { $ownsLock = $syncMutex.WaitOne(0) }
@@ -142,7 +159,7 @@ try {
     }
 
     if ($Once) {
-        if (Invoke-NotesSync) { exit 0 }
+        if (Invoke-SerializedNotesSync) { exit 0 }
         exit 1
     }
 
@@ -150,10 +167,11 @@ try {
     Write-Host '[Auto Sync] Other files require manual commits. Press Ctrl+C to stop.'
     while ($true) {
         Start-Sleep -Seconds $IntervalSeconds
-        $null = Invoke-NotesSync
+        $null = Invoke-SerializedNotesSync
     }
 }
 finally {
     if ($ownsLock) { $syncMutex.ReleaseMutex() }
     $syncMutex.Dispose()
+    $operationMutex.Dispose()
 }

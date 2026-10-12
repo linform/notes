@@ -25,10 +25,31 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 1. 在 VS Code 中打开项目根目录。如果 VS Code 提示是否允许运行自动任务，了解下面的同步行为后再启用。
 2. 在 `docs/` 中创建或编辑 `.md`，保存后检查本地预览。
 3. 新文章加入 `mkdocs.yml` 的 `nav`，图片等资源放在 `docs/` 内，使用相对路径引用。
-4. 在主工作目录的 `main` 分支使用自动同步。分离 HEAD 和功能分支只用于本地编辑或预览，脚本会拒绝自动提交和推送。
-5. 推送完成后，到 Actions 查看部署结果。Git 推送成功不等于网站部署成功。
+4. 在主工作目录的 `main` 分支使用自动同步。分离 HEAD 和功能分支完成编辑后，运行下面的发布命令；后台同步不会自动发布这些工作树。
+5. 核验 GitHub 的目标提交和 Actions 部署结果后才算交付完成。Git 推送成功不等于网站部署成功。
 
 VS Code 的两个后台任务分别启动本地预览和自动同步；可以通过“任务：终止任务”或任务终端的 Ctrl+C 停止。未启用自动任务时，也可以通过“任务：运行任务”手工启动。
+
+## 从当前工作树发布已完成的笔记
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1
+
+# 当前工作树缺少 .venv 时，可显式指定已有环境
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1 -PythonPath 'C:\path\to\python.exe'
+```
+
+也可以在 VS Code 的“任务：运行任务”选择 `Git: Publish completed notes from this worktree`。该任务只在明确运行时发布，不在打开文件夹时触发。
+
+发布命令适用于 `main`、功能分支和 detached HEAD：找到已检出的 `main`，确认 Git 状态和提交关系，严格构建，自动提交 `docs/` 和 `mkdocs.yml`，快进合并到主工作目录，正常推送，最后核验远端 SHA。没有原地切换分支或覆盖未保存文件的步骤；课件 `ref/` 等未跟踪内容不会被自动加入提交。
+
+命令仅自动提交笔记。若本次任务修改项目脚本、测试或配置说明，先检查差异并明确提交这些任务文件，再加 `-IncludeCommittedProjectChanges` 发布已审核的提交。工作目录内未提交的非笔记改动仍会阻止发布。默认还会检查每一笔待推送提交，避免夹带未审核的项目改动。
+
+已有后台同步进程可以继续运行；两种命令共用每次 Git 操作的互斥锁。修改同步脚本后，终止并重新启动已有后台任务，使新版本生效。
+
+遇到主目录未提交修改、合并／变基操作、分叉、远端领先、构建失败或推送失败时，命令以非零状态退出，并保留文件及已创建的提交。检查并整合差异后重试，不强推，也不覆盖用户修改。
+
+发布成功后，查看 **本次 SHA 对应**的 [Actions](https://github.com/linform/notes/actions)，等待 `build`、`test-sync`、`deploy` 全部成功。根目录 `AGENTS.md` 已将远端同步和部署核验列为本仓库内容修改任务的完成条件。
 
 ## 自动同步的范围与边界
 
@@ -63,7 +84,7 @@ py -3.12 -m unittest discover -s tests -v
 | 情况 | 处理 |
 | --- | --- |
 | 缺少 `.venv` 或依赖 | 按首次安装命令创建环境、安装依赖 |
-| 当前是 detached HEAD 或功能分支 | 在此预览即可；将修改正常合并到主工作目录的 main 后再同步，不要强制切换覆盖未保存的工作 |
+| 当前是 detached HEAD 或功能分支 | 编辑完成后运行 `publish-notes.ps1`，无需原地切换到 main；失败时按具体提示整合差异后重试 |
 | Remote main has changes | 停止同步、检查 `git status`，手工获取并整合远端变化后重试 |
 | Git 验证或网络失败 | 本地提交仍保留；恢复访问后重试 |
 | 推送成功但网站未更新 | 查看 Actions 的构建、同步测试和部署状态 |
