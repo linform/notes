@@ -23,6 +23,18 @@ hide:
 
 <div class="notes-file" markdown="1">
 
+<span class="notes-file__type">物理笔记</span>
+
+### [固体物理](固体物理.md)
+
+晶体结构、晶体结合、晶格振动与能带理论入门。包含公式推导、课件作业解析和复习自测。
+
+<div class="notes-file__bottom"><span>固体物理.md</span><span aria-hidden="true">打开文件 ↗</span></div>
+
+</div>
+
+<div class="notes-file" markdown="1">
+
 <span class="notes-file__type">写作指南</span>
 
 ### [Markdown 使用手册](Markdown使用说明.md)

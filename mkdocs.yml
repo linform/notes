@@ -4,6 +4,8 @@ site_description: 学习笔记、公式推导与 Markdown 写作指南。
 
 nav:
   - 首页: index.md
+  - 物理笔记:
+      - 固体物理: 固体物理.md
   - 写作指南:
       - Markdown 使用手册: Markdown使用说明.md
 
@@ -50,6 +52,8 @@ plugins:
 
 markdown_extensions:
   - tables
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
