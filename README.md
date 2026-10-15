@@ -30,6 +30,30 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 
 VS Code 的两个后台任务分别启动本地预览和自动同步；可以通过“任务：终止任务”或任务终端的 Ctrl+C 停止。未启用自动任务时，也可以通过“任务：运行任务”手工启动。
 
+## 登录后持续自动同步
+
+在 Windows 上运行一次：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install-auto-sync.ps1
+```
+
+它会定位 `main` 所在的主工作目录，为当前用户安装并立即启动 Windows 计划任务。以后登录自动启动，无需打开 VS Code 或 Codex。任务在后台每 60 秒检查笔记；没有运行时每 5 分钟尝试恢复，异常退出后还会按 1 分钟间隔重试。任务无运行时长限制，使用电池时也继续运行。
+
+任务只在当前用户登录时运行，沿用该用户的 Git 凭据，不保存密码。关机、注销或休眠期间不执行同步；联网恢复后，既有同步循环会重试。同步范围仍为主目录的 `docs/` 和 `mkdocs.yml`，`ref/` 不自动上传。
+
+同一仓库重复安装会更新同一个任务，不会累积多个启动项。任务名称为 `NotesAutoSync-` 加仓库路径标识，可在 Windows“任务计划程序”查看。日志写入主目录的 `site/auto-sync-task.log`，不进入 Git。若 VS Code 同时启动同步，其重复实例会自动退出。
+
+```powershell
+# 只查看将要安装的配置，不修改 Windows 设置
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install-auto-sync.ps1 -Describe
+
+# 停止并移除该仓库的自动启动任务
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install-auto-sync.ps1 -Uninstall
+```
+
+任务使用当前用户的普通权限。若系统策略拒绝注册，脚本会明确返回失败；查看系统权限后再处理，不能把脚本文件存在当作已经安装成功。任务设置参考 [Microsoft ScheduledTasks 文档](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset)。
+
 ## 从当前工作树发布已完成的笔记
 
 ```powershell

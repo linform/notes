@@ -52,10 +52,10 @@ class AutoSyncTests(unittest.TestCase):
                            ('commit.gpgsign', 'false'), ('core.hooksPath', str(self.root / 'no-hooks'))]:
             self.run_git(directory, 'config', key, value)
 
-    def sync(self, cwd=None):
+    def sync(self, cwd=None, extra_args=()):
         return subprocess.run(
             [POWERSHELL, '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-             str(self.work / 'auto-sync.ps1'), '-Once'], cwd=cwd or self.work, env=self.env,
+             str(self.work / 'auto-sync.ps1'), '-Once', *extra_args], cwd=cwd or self.work, env=self.env,
             capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=40,
         )
 
@@ -107,6 +107,13 @@ class AutoSyncTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('No pending commits', result.stdout)
         self.assertEqual(self.git('rev-parse', 'HEAD'), self.initial)
+
+    def test_background_log_records_sync_result(self):
+        log = self.root / 'logs/auto-sync.log'
+        result = self.sync(extra_args=('-LogPath', str(log), '-Unattended'))
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(log.exists())
+        self.assertIn('No pending commits on main', log.read_text(encoding='utf-8-sig', errors='replace'))
 
     def test_duplicate_worker_is_blocked_and_recovers_after_exit(self):
         # Keep one real worker idle while a second process attempts to sync.

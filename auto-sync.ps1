@@ -3,11 +3,17 @@
 param(
     [ValidateRange(1, 86400)]
     [int]$IntervalSeconds = 60,
-    [switch]$Once
+    [switch]$Once,
+    [string]$LogPath,
+    [switch]$Unattended
 )
 
 $ErrorActionPreference = 'Continue'
 Set-Location -LiteralPath $PSScriptRoot
+if ($Unattended) {
+    $env:GIT_TERMINAL_PROMPT = '0'
+    $env:GCM_INTERACTIVE = 'Never'
+}
 
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Warning '[Auto Sync] Git is unavailable. Install Git and restart VS Code.'
@@ -150,12 +156,28 @@ finally { $hasher.Dispose() }
 $syncMutex = [Threading.Mutex]::new($false, "Local\NotesAutoSync-$lockHash")
 $operationMutex = [Threading.Mutex]::new($false, "Local\NotesSyncOperation-$lockHash")
 $ownsLock = $false
+$transcriptStarted = $false
 try {
     try { $ownsLock = $syncMutex.WaitOne(0) }
     catch [Threading.AbandonedMutexException] { $ownsLock = $true }
     if (-not $ownsLock) {
         Write-Warning '[Auto Sync] Another sync worker is already running for this repository. Stop it before starting a new worker or using -Once.'
         exit 1
+    }
+
+    if ($LogPath) {
+        try {
+            $logDirectory = Split-Path -Parent ([IO.Path]::GetFullPath($LogPath))
+            if (-not (Test-Path -LiteralPath $logDirectory)) {
+                $null = New-Item -ItemType Directory -Path $logDirectory -Force -ErrorAction Stop
+            }
+            $null = Start-Transcript -Path $LogPath -Append -ErrorAction Stop
+            $transcriptStarted = $true
+        }
+        catch {
+            Write-Warning "[Auto Sync] Cannot open log: $($_.Exception.Message)"
+            exit 1
+        }
     }
 
     if ($Once) {
@@ -171,6 +193,7 @@ try {
     }
 }
 finally {
+    if ($transcriptStarted) { $null = Stop-Transcript }
     if ($ownsLock) { $syncMutex.ReleaseMutex() }
     $syncMutex.Dispose()
     $operationMutex.Dispose()
