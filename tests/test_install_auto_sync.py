@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -56,8 +57,12 @@ class InstallAutoSyncTests(unittest.TestCase):
         plan = plans[1]
         self.assertEqual(Path(plan['MainDirectory']).resolve(), self.main.resolve())
         self.assertEqual(Path(plan['Action']['WorkingDirectory']).resolve(), self.main.resolve())
-        self.assertIn(str(self.main / 'auto-sync.ps1'), plan['Action']['Arguments'])
-        self.assertNotIn(str(self.draft), plan['Action']['Arguments'])
+        # Git expands Windows 8.3 aliases (RUNNER~1) on hosted runners.
+        # Check file identity rather than spelling or case of the path.
+        worker_argument = re.search(r'-File "([^"]+)"', plan['Action']['Arguments'])
+        self.assertIsNotNone(worker_argument)
+        self.assertTrue(Path(worker_argument.group(1)).samefile(self.main / 'auto-sync.ps1'))
+        self.assertNotEqual(Path(worker_argument.group(1)).parent.resolve(), self.draft.resolve())
         self.assertIn('-WindowStyle Hidden', plan['Action']['Arguments'])
         self.assertIn('-Unattended', plan['Action']['Arguments'])
         self.assertIn('auto-sync-task.log', plan['Action']['Arguments'])
