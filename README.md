@@ -28,7 +28,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 4. 完成编辑后，手动运行下面的发布命令。普通保存文件不会自动提交或推送。
 5. 核验 GitHub 的目标提交和 Actions 部署结果后才算交付完成。Git 推送成功不等于网站部署成功。
 
-VS Code 的本地预览任务可以随文件夹打开而启动。Git 相关任务只在“任务：运行任务”中手动触发：`Git: Publish completed notes from this worktree` 用于发布当前工作树，`Git: Sync notes once` 用于在 `main` 执行一轮同步，不会持续轮询。
+VS Code 的本地预览任务可以随文件夹打开而启动。Git 相关任务只在“任务：运行任务”中手动触发：`Git: Publish completed notes from this worktree` 和 `Git: Sync notes once` 均执行一次严格构建和发布，不会持续轮询。
+
+本机桌面的“笔记单次同步”快捷方式调用主目录的 `publish-notes.ps1`，先严格构建，再提交、推送并核验远端。双击执行一轮；窗口保留结果，关闭窗口即可。没有内容改动时不会创建空提交。它不会安装后台任务；网站更新仍需等待 GitHub Actions 部署完成。
 
 ## 后台常驻同步已关闭
 
@@ -62,6 +64,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1 -PythonP
 
 遇到主目录未提交修改、合并／变基操作、分叉、远端领先、构建失败或推送失败时，命令以非零状态退出，并保留文件及已创建的提交。检查并整合差异后重试，不强推，也不覆盖用户修改。
 
+构建期间如继续修改、添加或删除笔记、附件或 `mkdocs.yml`，发布会停止并保留编辑内容。保存后重新运行即可，避免将未完成校验的内容提交到远端。
+
 发布成功后，查看 **本次 SHA 对应**的 [Actions](https://github.com/linform/notes/actions)，等待 `build`、`test-sync`、`deploy` 全部成功。根目录 `AGENTS.md` 已将远端同步和部署核验列为本仓库内容修改任务的完成条件。
 
 ## 按需同步的范围与边界
@@ -70,6 +74,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1 -PythonP
 # 立即执行一轮；成功退出码 0，失败或不适用退出码 1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\auto-sync.ps1 -Once
 ```
+
+这是保留的底层同步命令，不执行 MkDocs 构建。日常使用桌面快捷方式或上面的 `publish-notes.ps1`，获得发布前构建校验和提交范围检查。
 
 - 仅自动提交 `docs/` 和 `mkdocs.yml` 的新增、修改、删除。
 - README、依赖、脚本、测试和工作流的修改需要手工提交。推送 main 会包含该分支上所有尚未推送的提交。

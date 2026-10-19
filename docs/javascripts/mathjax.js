@@ -12,8 +12,9 @@ window.MathJax = {
 };
 
 document$.subscribe(() => {
-  MathJax.startup.output.clearCache();
-  MathJax.typesetClear();
-  MathJax.texReset();
-  MathJax.typesetPromise();
+  // Wait for initial typesetting and serialize subsequent document events.
+  // Clearing math still present in the DOM reprocesses its assistive MathML.
+  MathJax.startup.promise = MathJax.startup.promise
+    .then(() => MathJax.typesetPromise())
+    .catch((error) => console.error("MathJax typesetting failed:", error));
 });

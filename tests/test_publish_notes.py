@@ -140,6 +140,30 @@ class PublishNotesTests(unittest.TestCase):
         self.assertEqual(self.git(self.main, 'branch', '--show-current'), 'other-task')
         self.assertNotEqual(self.git(self.source, 'rev-parse', 'HEAD'), self.initial)
 
+    def test_notes_changing_during_build_are_preserved_without_publishing(self):
+        self.edit()
+        for operation in ('modify', 'add', 'delete', 'config'):
+            with self.subTest(operation=operation):
+                if operation == 'modify':
+                    command = f'echo edited during build> "{self.source / "docs/index.md"}"'
+                elif operation == 'add':
+                    command = f'echo new attachment> "{self.source / "docs/attachment.pdf"}"'
+                elif operation == 'delete':
+                    command = f'del "{self.source / "docs/new.md"}"'
+                else:
+                    command = f'echo site_name: Changed> "{self.source / "mkdocs.yml"}"'
+                self.builder.write_text(f'@echo off\r\n{command}\r\nexit /b 0\r\n', encoding='ascii')
+                result = self.publish()
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn('Notes changed during validation', result.stdout)
+                self.assertEqual(self.remote_head(), self.initial)
+                self.assertEqual(self.git(self.source, 'rev-parse', 'HEAD'), self.initial)
+                self.assertEqual(self.git(self.main, 'rev-parse', 'HEAD'), self.initial)
+        self.assertIn('edited during build', (self.source / 'docs/index.md').read_text())
+        self.assertTrue((self.source / 'docs/attachment.pdf').exists())
+        self.assertFalse((self.source / 'docs/new.md').exists())
+        self.assertIn('Changed', (self.source / 'mkdocs.yml').read_text())
+
     def test_remote_ahead_cannot_be_overwritten(self):
         other = self.root / 'other'
         self.git(self.root, 'clone', str(self.remote), str(other))

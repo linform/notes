@@ -40,8 +40,7 @@
       "args": [
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
-        "-File", "${workspaceFolder}\\auto-sync.ps1",
-        "-Once"
+        "-File", "${workspaceFolder}\\publish-notes.ps1"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "problemMatcher": [],

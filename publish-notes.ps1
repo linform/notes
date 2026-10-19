@@ -50,6 +50,19 @@ function Assert-OnlyNotes {
     }
 }
 
+function Get-NotesSnapshot {
+    # Detect edits/additions/deletions while MkDocs is reading its inputs.
+    # Use native paths so Unicode filenames work on Windows PowerShell 5.1.
+    $files = @(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'docs') -File -Recurse -Force)
+    $files += Get-Item -LiteralPath (Join-Path $PSScriptRoot 'mkdocs.yml')
+    return (($files | Sort-Object FullName | ForEach-Object {
+        $stream = [IO.File]::OpenRead($_.FullName)
+        $digest = [Security.Cryptography.SHA256]::Create()
+        try { "$($_.FullName)`t$([BitConverter]::ToString($digest.ComputeHash($stream)))" }
+        finally { $stream.Dispose(); $digest.Dispose() }
+    }) -join "`n")
+}
+
 $operationMutex = $null
 $ownsOperation = $false
 try {
@@ -105,6 +118,7 @@ try {
     }
     if (-not $PythonPath) { throw 'Python environment missing. Set up .venv or pass -PythonPath.' }
     if (-not (Get-Command $PythonPath -ErrorAction SilentlyContinue)) { throw 'The selected Python command is unavailable.' }
+    $notesSnapshot = Get-NotesSnapshot
     $savedPreference = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
     try {
@@ -115,6 +129,9 @@ try {
     if ($buildExit -ne 0) { throw 'Strict documentation build failed. Nothing was published.' }
     if ((Read-Git $source @('rev-parse', 'HEAD')).Trim() -ne $head) {
         throw 'Worktree HEAD changed during validation. Reconcile before publishing.'
+    }
+    if ((Get-NotesSnapshot) -cne $notesSnapshot) {
+        throw 'Notes changed during validation. Save your edits and retry; nothing was published.'
     }
     Assert-Idle $source
 

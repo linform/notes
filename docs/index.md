@@ -57,6 +57,18 @@ hide:
 
 </div>
 
+<div class="notes-file" markdown="1">
+
+<span class="notes-file__type">参考资料 · PDF</span>
+
+### [光催化降解塑料：正方资料](光催化降解塑料_正方资料.pdf)
+
+打开已保存的 PDF 资料，供阅读和查阅使用。
+
+<div class="notes-file__bottom"><span>PDF · 约 7.7 MB</span><span aria-hidden="true">阅读资料 ↗</span></div>
+
+</div>
+
 </div>
 
 <div class="notes-home__shortcuts" markdown="1">
