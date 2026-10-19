@@ -502,6 +502,25 @@ body[data-md-color-scheme="slate"] .notes-home {
   line-height: 2;
 }
 
+.notes-home__files--course {
+  grid-template-columns: 1fr;
+}
+
+.md-typeset .notes-home h2:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.notes-home .md-button {
+  margin: .4rem .4rem .2rem 0;
+  padding: .55em 1em;
+  font-size: .75rem;
+  border-radius: .3rem;
+}
+
+.md-typeset .notes-home .md-button--primary {
+  color: var(--md-primary-bg-color);
+}
+
 .notes-home__footer {
   margin-top: 3rem;
   padding-top: 1rem;

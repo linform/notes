@@ -118,6 +118,12 @@ try {
     }
     if (-not $PythonPath) { throw 'Python environment missing. Set up .venv or pass -PythonPath.' }
     if (-not (Get-Command $PythonPath -ErrorAction SilentlyContinue)) { throw 'The selected Python command is unavailable.' }
+    # Refresh the generated compatibility edition before freezing build inputs.
+    $contentBuilder = Join-Path $source 'scripts\course_content.py'
+    if (Test-Path -LiteralPath $contentBuilder) {
+        & $PythonPath -X utf8 $contentBuilder --root $source
+        if ($LASTEXITCODE -ne 0) { throw 'Course content preparation failed. Nothing was published.' }
+    }
     $notesSnapshot = Get-NotesSnapshot
     $savedPreference = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'

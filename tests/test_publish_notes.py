@@ -126,6 +126,23 @@ class PublishNotesTests(unittest.TestCase):
         self.assert_blocked('Strict documentation build failed')
         self.assertEqual(self.git(self.main, 'rev-parse', 'HEAD'), self.initial)
 
+    def test_course_preparation_runs_before_validation_and_publishes_generated_notes(self):
+        (self.source / 'scripts').mkdir()
+        (self.source / 'scripts/course_content.py').write_text('# preparation fixture\n')
+        self.builder.write_text(
+            f'@echo off\r\nif "%~1"=="-X" echo generated course> "{self.source / "docs/complete.md"}"\r\nexit /b 0\r\n',
+            encoding='ascii',
+        )
+        self.assert_success(self.publish())
+        self.assertIn('generated course', (self.main / 'docs/complete.md').read_text())
+
+    def test_course_preparation_failure_does_not_commit_or_push(self):
+        self.edit()
+        (self.source / 'scripts').mkdir()
+        (self.source / 'scripts/course_content.py').write_text('# preparation fixture\n')
+        self.builder.write_text('@echo off\r\nif "%~1"=="-X" exit /b 8\r\nexit /b 0\r\n', encoding='ascii')
+        self.assert_blocked('Course content preparation failed')
+
     def test_main_switching_branches_during_build_does_not_publish(self):
         self.edit()
         self.builder.write_text(

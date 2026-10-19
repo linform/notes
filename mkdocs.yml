@@ -1,17 +1,43 @@
 site_name: 我的学习笔记
 site_url: https://linform.github.io/notes/
 site_description: 学习笔记、公式推导与 Markdown 写作指南。
+repo_url: https://github.com/linform/notes
+repo_name: linform/notes
+edit_uri: edit/main/docs/
 
 nav:
   - 首页: index.md
-  - 物理笔记:
-      - 固体物理: 固体物理.md
-  - 写作指南:
+  - 课程笔记:
+      - 固体物理:
+          - courses/solid-state/index.md
+          - 第一章 · 晶体结构: courses/solid-state/structure.md
+          - 第二章 · 晶体结合: courses/solid-state/bonding.md
+          - 第三章 · 晶格振动: courses/solid-state/phonons.md
+          - 第四章 · 能带理论:
+              - 单电子模型: courses/solid-state/electron-models.md
+              - 周期势与带隙: courses/solid-state/bloch.md
+              - 电子统计与运动: courses/solid-state/electron-statistics.md
+              - 紧束缚与石墨烯: courses/solid-state/tight-binding.md
+              - 密度泛函与自洽计算: courses/solid-state/dft.md
+          - 习题与解析: courses/solid-state/exercises.md
+          - 复习速查与自测: courses/solid-state/review.md
+          - 参考资料与订正: courses/solid-state/references.md
+          - 完整阅读版: 固体物理.md
+  - 参考资料: resources/index.md
+  - 写作与发布:
+      - guides/index.md
       - Markdown 使用手册: Markdown使用说明.md
+      - 课程章节与资料模板: guides/templates.md
 
 not_in_nav: |
   /原神.md
   /test.md
+
+exclude_docs: |
+  /courses/solid-state/course.json
+
+hooks:
+  - hooks/content_quality.py
 
 validation:
   links:
@@ -38,11 +64,14 @@ theme:
         name: 切换到浅色模式
   features:
     - navigation.sections
+    - navigation.indexes
+    - navigation.footer
     - navigation.top
     - toc.follow
     - search.suggest
     - search.highlight
     - content.code.copy
+    - content.action.edit
 
 plugins:
   - search:
@@ -51,6 +80,8 @@ plugins:
         - en
 
 markdown_extensions:
+  - admonition
+  - pymdownx.details
   - tables
   - pymdownx.tasklist:
       custom_checkbox: true

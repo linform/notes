@@ -5,7 +5,9 @@
 ## 修改与验证
 
 - 课件放在 `ref/`；关联工作树中缺失时，通过 `git worktree list` 查找主目录并读取课件。不要自动提交课件或整个工作目录。
-- Markdown 和配图放在 `docs/`，新文章同时加入 `mkdocs.yml` 导航及首页卡片。
+- Markdown 和配图放在 `docs/`。新文章加入 `mkdocs.yml` 导航及所属课程／栏目概览；新课程或顶级栏目还须在首页提供入口。
+- 固体物理正文维护在 `docs/courses/solid-state/`，保留 `course:body` 标记；`docs/固体物理.md` 是自动生成的兼容版本，不直接编辑。构建和发布会自动刷新，维护细节见 `MAINTAINING.md`。
+- 新文章填写 `title`、`description`，附件提供阅读链接。构建中的内容检查会阻止缺失入口、无效锚点和未链接附件；不得为了通过构建而关闭检查或任意排除正文。
 - 交付前严格构建 MkDocs，检查涉及的公式、图片、链接；修改同步脚本时运行 `python -m unittest discover -s tests -v`。
 - 仓库内 `.venv` 缺失时，可以使用主工作目录的 Python 环境；发布脚本支持 `-PythonPath` 显式指定。
 

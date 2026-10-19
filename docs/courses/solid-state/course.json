@@ -1,0 +1,51 @@
+{
+  "parts": [
+    {
+      "file": "index.md"
+    },
+    {
+      "file": "structure.md",
+      "heading": "## 第一章　晶体结构"
+    },
+    {
+      "file": "bonding.md",
+      "heading": "## 第二章　晶体结合"
+    },
+    {
+      "file": "phonons.md",
+      "heading": "## 第三章　晶格振动"
+    },
+    {
+      "file": "electron-models.md",
+      "heading": "## 第四章　能带理论"
+    },
+    {
+      "file": "bloch.md",
+      "heading": ""
+    },
+    {
+      "file": "electron-statistics.md",
+      "heading": ""
+    },
+    {
+      "file": "tight-binding.md",
+      "heading": ""
+    },
+    {
+      "file": "dft.md",
+      "heading": ""
+    },
+    {
+      "file": "exercises.md",
+      "heading": "## 课件作业与解题示例"
+    },
+    {
+      "file": "review.md",
+      "heading": "## 复习速查与自测"
+    },
+    {
+      "file": "references.md",
+      "heading": "## 参考资料与使用方式"
+    }
+  ]
+}
