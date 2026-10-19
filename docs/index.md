@@ -1,5 +1,5 @@
 ---
-title: 我的学习笔记
+title: 首页
 description: 从课程概览开始学习，按章节阅读，结合习题和自测复习。
 hide:
   - navigation
