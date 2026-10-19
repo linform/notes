@@ -1,0 +1,123 @@
+{
+  "course": "中国科学院大学固体物理（2班）",
+  "teachers": [
+    "王峙",
+    "魏大海"
+  ],
+  "added": "2026-10-19",
+  "note": "原文件逐字节复制，仅站内路径改为稳定编号；原名、页数、字节数和 SHA-256 如下。原作者权利保留。",
+  "slides": [
+    {
+      "id": "S1",
+      "original_name": "固体物理（2班）1.晶体结构（1） (1).pptx",
+      "file": "s01.pptx",
+      "bytes": 9419724,
+      "slides": 45,
+      "sha256": "8d8c7665abf97da52c29550e9f16cb100ab91f2e2cec3c8c7519cc332d522348"
+    },
+    {
+      "id": "S2",
+      "original_name": "固体物理（2班）1.晶体结构（2） (1).pptx",
+      "file": "s02.pptx",
+      "bytes": 16018556,
+      "slides": 58,
+      "sha256": "586803656a3be914ae94ff8aea74206046ab04434b82d2954a649795f2a14dd8"
+    },
+    {
+      "id": "S3",
+      "original_name": "固体物理（2班）1.晶体结构（3） (1).pptx",
+      "file": "s03.pptx",
+      "bytes": 10726648,
+      "slides": 38,
+      "sha256": "96c461a586d95bb0c4ce095a4e02069fc8a8b58b37a93d97a5bb7b3e09de75ec"
+    },
+    {
+      "id": "S4",
+      "original_name": "固体物理（2班）1.晶体结构（4） (1).pptx",
+      "file": "s04.pptx",
+      "bytes": 11219948,
+      "slides": 58,
+      "sha256": "989f8b8f4cb17ef30f432a0b1c0cb0f89e5e7df70e660976e40239b78d014a05"
+    },
+    {
+      "id": "S5",
+      "original_name": "固体物理（2班）2.晶体结合 (1).pptx",
+      "file": "s05.pptx",
+      "bytes": 9275119,
+      "slides": 44,
+      "sha256": "fb8c3af5e390c075db4cc6900c97bc868de82359f9aedc8266d38e49e5a0f991"
+    },
+    {
+      "id": "S6",
+      "original_name": "固体物理（2班）3.晶格振动（1） (1).pptx",
+      "file": "s06.pptx",
+      "bytes": 7806898,
+      "slides": 47,
+      "sha256": "e59dcb777f8553abba0feb29fd6dde9d8e5f37f79f0addbef94ecf282ce87073"
+    },
+    {
+      "id": "S7",
+      "original_name": "固体物理（2班）3.晶格振动（2）.pptx",
+      "file": "s07.pptx",
+      "bytes": 7205353,
+      "slides": 40,
+      "sha256": "b3a195cd2a3860bb84158d833a27d544daa1d47a176b4f9ceaccfa1fd26988a1"
+    },
+    {
+      "id": "S8",
+      "original_name": "固体物理（2班）3.晶格振动（3）.pptx",
+      "file": "s08.pptx",
+      "bytes": 10413217,
+      "slides": 44,
+      "sha256": "bda407b84889d198cacf3dcd955aebd068591901d309b9c3a7d714019a0947e7"
+    },
+    {
+      "id": "S9",
+      "original_name": "固体物理（2班）4.能带理论（1）.pptx",
+      "file": "s09.pptx",
+      "bytes": 5970990,
+      "slides": 31,
+      "sha256": "356b87fc62d4327bf63bb0ccf0381c9e40a7bc34b8ce29cbd179a8ce8b133741"
+    },
+    {
+      "id": "S10",
+      "original_name": "固体物理（2班）4.能带理论（2）.pptx",
+      "file": "s10.pptx",
+      "bytes": 6586047,
+      "slides": 29,
+      "sha256": "ab802f1a7a732700829689ffac8bf310a8829a3232a92262e6b1442f1865a9ff"
+    },
+    {
+      "id": "S11",
+      "original_name": "固体物理（2班）4.能带理论（3）.pptx",
+      "file": "s11.pptx",
+      "bytes": 7405146,
+      "slides": 26,
+      "sha256": "c647112235af297383430a9ea1cc3422b85f3f05fad10758c878937d76382199"
+    },
+    {
+      "id": "S12",
+      "original_name": "固体物理（2班）4.能带理论（4）.pptx",
+      "file": "s12.pptx",
+      "bytes": 8530215,
+      "slides": 31,
+      "sha256": "99c536b09b53ce32fbecd161aa4d3a37bd6ccda8a1cea1c4ce18bdfbcf2739af"
+    },
+    {
+      "id": "S13",
+      "original_name": "固体物理（2班）4.能带理论（5）.pptx",
+      "file": "s13.pptx",
+      "bytes": 7776662,
+      "slides": 27,
+      "sha256": "ab572851ce85875fb52d108566ff9b9dda216c587186db33f4202d904357e193"
+    },
+    {
+      "id": "S14",
+      "original_name": "固体物理（2班）4.能带理论（6）.pptx",
+      "file": "s14.pptx",
+      "bytes": 13477319,
+      "slides": 33,
+      "sha256": "ef089f06a4215efa1468fddd97e4726ba780425084dd9beba80b352438f060b5"
+    }
+  ]
+}

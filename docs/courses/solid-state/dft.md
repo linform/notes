@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S14 · 33 页 · 12.9 MiB](../../assets/solid-state/slides/s14.pptx){ download="固体物理（2班）4.能带理论（6）.pptx" }。
+
+    **对照阅读**：KS 方程、平面波与赝势：MIT Lecture 8；公式来源和赝势库见原始论文及 Quantum ESPRESSO。
+
+    [MIT 讲义 PDF](references.md#mit-dft) · [原始论文与工具](references.md#papers) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 区分 Hartree、Hartree–Fock、HK 定理与 KS 辅助体系。

@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S10 · 29 页 · 6.3 MiB](../../assets/solid-state/slides/s10.pptx){ download="固体物理（2班）4.能带理论（2）.pptx" }；[S11 · 26 页 · 7.1 MiB](../../assets/solid-state/slides/s11.pptx){ download="固体物理（2班）4.能带理论（3）.pptx" }。
+
+    **对照阅读**：Bloch 定理与弱周期势：Tong 第 2 章；进一步推导与练习见 Sigrist。
+
+    [Tong 全文与分章 PDF](references.md#tong) · [Sigrist 全文 PDF 与练习](references.md#sigrist) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 区分 Bloch 相位、周期部分和全样品周期边界条件。

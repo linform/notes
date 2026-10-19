@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S13 · 27 页 · 7.4 MiB](../../assets/solid-state/slides/s13.pptx){ download="固体物理（2班）4.能带理论（5）.pptx" }。
+
+    **对照阅读**：紧束缚：Tong 第 2 章；石墨烯：第 3 章。Sigrist 适合继续学习多轨道模型。
+
+    [Tong 全文与分章 PDF](references.md#tong) · [Sigrist 全文 PDF 与练习](references.md#sigrist) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 从局域轨道、邻居和跃迁矩阵建立紧束缚模型。

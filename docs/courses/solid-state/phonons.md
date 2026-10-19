@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S6 · 47 页 · 7.4 MiB](../../assets/solid-state/slides/s06.pptx){ download="固体物理（2班）3.晶格振动（1） (1).pptx" }；[S7 · 40 页 · 6.9 MiB](../../assets/solid-state/slides/s07.pptx){ download="固体物理（2班）3.晶格振动（2）.pptx" }；[S8 · 44 页 · 9.9 MiB](../../assets/solid-state/slides/s08.pptx){ download="固体物理（2班）3.晶格振动（3）.pptx" }。
+
+    **对照阅读**：一维链与量子化：Tong 第 4 章；热容：Simon 的 Specific Heat 相关章节。
+
+    [Tong 全文与分章 PDF](references.md#tong) · [Simon 官方全文 PDF](references.md#simon) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 从一维链方程推导色散并检查长波与区边界极限。

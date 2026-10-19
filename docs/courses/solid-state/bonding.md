@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S5 · 44 页 · 8.8 MiB](../../assets/solid-state/slides/s05.pptx){ download="固体物理（2班）2.晶体结合 (1).pptx" }。
+
+    **对照阅读**：结合能与成键：Simon 讲义中的 Chemical Bonding；中文教材按“固体的结合”主题对读。
+
+    [Simon 官方全文 PDF](references.md#simon) · [中文教材](references.md#chinese-books) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 说明结合能的参考态、符号和计量单位。

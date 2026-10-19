@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S1 · 45 页 · 9.0 MiB](../../assets/solid-state/slides/s01.pptx){ download="固体物理（2班）1.晶体结构（1） (1).pptx" }；[S2 · 58 页 · 15.3 MiB](../../assets/solid-state/slides/s02.pptx){ download="固体物理（2班）1.晶体结构（2） (1).pptx" }；[S3 · 38 页 · 10.2 MiB](../../assets/solid-state/slides/s03.pptx){ download="固体物理（2班）1.晶体结构（3） (1).pptx" }；[S4 · 58 页 · 10.7 MiB](../../assets/solid-state/slides/s04.pptx){ download="固体物理（2班）1.晶体结构（4） (1).pptx" }。
+
+    **对照阅读**：晶格、倒格子与衍射：Tong 第 2 章；对称操作：IUCr 教学册。
+
+    [Tong 全文与分章 PDF](references.md#tong) · [IUCr 对称性教学册](references.md#iucr) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 区分晶格、基元、原胞和惯用胞。

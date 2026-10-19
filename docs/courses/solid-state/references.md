@@ -56,9 +56,83 @@ description: 课件订正、参考讲义、范围说明和本课程笔记更新�
 
 课件推荐的中文教材包括阎守胜《固体物理基础》和黄昆《固体物理学》，后者章节顺序更接近本课程。数学准备不足时，可先读每节的定义、图像与极限结论，再回到推导。
 
+<span id="reading-library"></span>
+
+### 参考书与公开讲义：阅读和下载
+
+先读当前章节，再按以下主题补充。**“官方全文 PDF”链接指向作者或学校公开提供的完整文件**，可在浏览器中阅读并保存；“馆藏／出版社”入口提供版本信息或借阅渠道，不代表免费全文。未发现明确再分发许可的书籍和讲义保留官方链接，避免本站副本与作者更新脱节。链接核对日期：2026-10-19。
+
+<span id="simon"></span>
+
+#### Steven H. Simon · Lecture Notes for Solid State Physics
+
+- **版本与入口**：Oxford，Hilary Term 2012，269 页。[官方全文 PDF](https://www-thphys.physics.ox.ac.uk/people/SteveSimon/condmat2012/LectureNotes2012.pdf)。这是 2012 年课程讲义，引用时与正式出版的 *The Oxford Solid State Basics* 区分。
+- **对应笔记**：晶体结合、晶格振动、单电子模型、电子统计。按目录中的 Chemical Bonding、Specific Heat、Drude / Sommerfeld 等主题查找。
+- **用途**：先读模型的物理图像，再核对假设、推导及章末练习。
+
+<span id="tong"></span>
+
+#### David Tong · Solid State Physics
+
+- **版本与入口**：Cambridge，2017，131 页。[官方全文 PDF](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate.pdf) · [课程主页与习题](https://davidtong.org/teaching/solid-state-physics/)。
+- **按章阅读**：[第 2 章 Band Structure](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate2.pdf)对应晶格、倒格子、Bloch、弱周期势和紧束缚；[第 3 章 Electron Dynamics](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate3.pdf)对应费米面、石墨烯、半经典运动；[第 4 章 Phonons](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate4.pdf)对应一维链与声子量子化。
+- **阅读提醒**：本讲义先讲磁场，再讲能带，顺序与本课程不同，按主题查阅即可。
+
+<span id="sigrist"></span>
+
+#### Manfred Sigrist · Solid State Theory
+
+- **版本与入口**：ETH Zürich，2014，165 页。[官方全文 PDF](https://edu.itp.phys.ethz.ch/fs14/sst/Lecture-Notes.pdf) · [课程归档、Slides 与习题](https://edu.itp.phys.ethz.ch/fs14/sst/)。
+- **对应笔记**：周期势、紧束缚及电子理论的进一步学习；适合完成本课程基本推导后阅读。
+
+<span id="gohmann"></span>
+
+#### Frank Göhmann · Introduction to Solid State Physics
+
+- **版本与入口**：2021，arXiv:2101.01780v1，116 页。[官方全文 PDF](https://arxiv.org/pdf/2101.01780v1) · [摘要、版本与许可](https://arxiv.org/abs/2101.01780)。
+- **对应笔记**：晶格振动、电子模型及准粒子概念。重在理解简化模型为什么成立。
+- **保存方式**：arXiv 记录采用向 arXiv 授权的非独占分发许可，本站提供原站全文入口。
+
+<span id="chinese-books"></span>
+
+#### 中文教材
+
+| 教材 | 版本核对与获取 | 对应阅读 |
+| --- | --- | --- |
+| 阎守胜《固体物理基础》，北京大学出版社 | [高校馆藏书目](https://opac.hbnu.edu.cn/ILASOPAC/NTRdrBookRetr.do?LeftSubjectKey=%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AD%A6&LeftSubjectType=subject&PageNum=10&ResearchSearchType=null&SearchKey=O48&SearchType=classno&researchSearchKey=null&searchWay=searchWayPrv)记录 2000 年版，ISBN 7-301-04629-4；[国科大课程书目](https://jwba.ucas.ac.cn/sc/course/courseplan/319959)另列第 3 版（2011）。借阅时核对手中版本。 | 电子气体、能带、晶格振动；按主题查目录。 |
+| 黄昆原著、韩汝琦改编《固体物理学》，高等教育出版社 | [1988 年版馆藏](https://opac.sicau.edu.cn/opac/book/95a5998237d8ecb06a7acd6559931c88)，ISBN 7-04-001025-9；[出版社第 2 版](https://xuanshu.hep.com.cn/front/h5Mobile/bookDetails?bookId=6266d665938b7cc2960eea23)，朱邦芬校订，ISBN 978-7-04-058601-5。 | 晶体结构、固体结合、晶格振动、能带；章节顺序较接近本课。 |
+
+本次未找到上述两本中文教材可供本站公开附载的授权全文，故附版本和获取入口；不同版次不混用页码。
+
+<span id="iucr"></span>
+
+#### 对称性与固体化学辅助资料
+
+- **L. S. Dent Glasser，IUCr *Symmetry***：[官方网页全文](https://www.iucr.org/what-we-do/education/pamphlets/symmetry) · [官方 PDF，20 页](https://www.iucr.org/sites/default/files/2026-03/pamphlet13.pdf)。对应晶体结构的对称操作入门。
+- **MIT OCW，3.091SC，Fall 2010**：[讲义目录与 PDF 下载](https://ocw.mit.edu/courses/3-091sc-introduction-to-solid-state-chemistry-fall-2010/resources/lecture-notes/)。配合晶体结构、成键与衍射阅读，注意这门课以固体化学为主。
+
+<span id="mit-dft"></span>
+
+#### MIT OCW · DFT、平面波与赝势讲义
+
+- **课程**：Gerbrand Ceder、Nicola Marzari，*3.320 Atomistic Computer Modeling of Materials*，Spring 2005，Lecture 8（文件 `3_01.pdf`），25 页。
+- **文件**：[本站 PDF 阅读副本](../../assets/solid-state/readings/mit-3-320-dft.pdf) · [官方介绍与下载](https://ocw.mit.edu/courses/3-320-atomistic-computer-modeling-of-materials-sma-5107-spring-2005/resources/3_01/)。对应密度泛函、自洽计算、平面波和赝势。
+- **来源与许可**：© Massachusetts Institute of Technology，MIT OpenCourseWare；按 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 与 [MIT OCW 使用条款](https://ocw.mit.edu/pages/privacy-and-terms-of-use/)提供非商业学习副本。PDF 内容未修改，文件内单独注明权利的材料仍以其原有说明为准。
+
+<span id="papers"></span>
+
+#### 原始论文与计算工具
+
+- **Kohn–Sham（1965）**：[出版方 DOI 入口](https://doi.org/10.1103/PhysRev.140.A1133)，用于核对 KS 自洽方程。全文访问条件以出版方为准。
+- **Sham–Schlüter（1983）**：[出版方 DOI 入口](https://doi.org/10.1103/PhysRevLett.51.1888)，用于区分 KS 本征谱与基本带隙。全文访问条件以出版方为准。
+- **Quantum ESPRESSO**：[官方赝势资料与库入口](https://pseudopotentials.quantum-espresso.org/)。这是会更新的软件资料，使用时阅读当前说明。
+
+
 <!-- /course:body -->
 
 ## 更新记录
+
+- **2026-10-19**：附 S1–S14 原始 PPTX，各章增加课件下载与配套阅读；补齐公开讲义全文、中文教材版本入口及 MIT 讲义阅读副本。
 
 - **2026-10-19**：按八个学习单元重组，增加章节目标、小结、统一自测和完整 Markdown 下载；物理推导以原有笔记为基础保留。
 - **2026-10-18**：整理 S10–S14 的周期势、电子统计、紧束缚和密度泛函内容。

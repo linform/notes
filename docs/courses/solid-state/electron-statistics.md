@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S12 · 31 页 · 8.1 MiB](../../assets/solid-state/slides/s12.pptx){ download="固体物理（2班）4.能带理论（4）.pptx" }。
+
+    **对照阅读**：DOS 与电子热容：Simon；费米面、群速度和有效质量：Tong 第 3 章。
+
+    [Simon 官方全文 PDF](references.md#simon) · [Tong 全文与分章 PDF](references.md#tong) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 统一态密度的总量、体积和自旋约定。

@@ -9,6 +9,13 @@ updated: "2026-10-19"
 
 [课程概览](index.md) · [符号约定](index.md#symbols) · [来源与订正](references.md)
 
+!!! abstract "本章课件与配套阅读"
+    **原始 PPTX**：[S9 · 31 页 · 5.7 MiB](../../assets/solid-state/slides/s09.pptx){ download="固体物理（2班）4.能带理论（1）.pptx" }。
+
+    **对照阅读**：自由电子及近似：Simon 的 Drude / Sommerfeld 模型；更系统的理论背景见 Göhmann。
+
+    [Simon 官方全文 PDF](references.md#simon) · [Göhmann 全文 PDF](references.md#gohmann) · [全部课件](index.md#course-sources)
+
 ## 学习目标
 
 - 区分绝热、独立电子与单电子模型中的近似。
