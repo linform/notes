@@ -13,14 +13,20 @@ function Read-Git {
     # Avoid PowerShell 5.1 treating normal native stderr as a terminating error.
     $savedPreference = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
+    $stderrPath = [IO.Path]::GetTempFileName()
     try {
-        $output = @(& git -C $Directory @Arguments 2>&1)
+        # Names/SHA output must not contain harmless stderr (e.g. CRLF warnings).
+        $output = @(& git -C $Directory @Arguments 2> $stderrPath)
         if ($LASTEXITCODE -ne 0) {
-            throw "Git failed: git $($Arguments -join ' ')`n$($output -join "`n")"
+            $details = [IO.File]::ReadAllText($stderrPath)
+            throw "Git failed: git $($Arguments -join ' ')`n$($output -join "`n")`n$details"
         }
         return ($output | ForEach-Object { $_.ToString() })
     }
-    finally { $ErrorActionPreference = $savedPreference }
+    finally {
+        $ErrorActionPreference = $savedPreference
+        [IO.File]::Delete($stderrPath)
+    }
 }
 
 function Test-Ancestor {

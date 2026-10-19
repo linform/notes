@@ -105,6 +105,19 @@ class PublishNotesTests(unittest.TestCase):
         self.edit(self.main)
         self.assert_success(self.publish(self.main))
 
+    def test_line_ending_warnings_cannot_be_mistaken_for_project_paths(self):
+        self.git(self.source, 'config', 'core.autocrlf', 'true')
+        self.git(self.source, 'config', 'core.safecrlf', 'warn')
+        self.edit()
+        # Path.write_text uses CRLF on Windows; force the LF input that triggered the bug.
+        for name in ('index.md', 'new.md'):
+            path = self.source / 'docs' / name
+            path.write_bytes(path.read_bytes().replace(b'\r\n', b'\n'))
+        probe = subprocess.run(['git', '-C', str(self.source), 'diff', 'HEAD', '--name-only'],
+                               env=self.env, capture_output=True, text=True, encoding='utf-8', timeout=20)
+        self.assertIn('LF will be replaced', probe.stderr)
+        self.assert_success(self.publish())
+
     def test_dirty_main_is_preserved(self):
         self.edit()
         self.edit(self.main)
