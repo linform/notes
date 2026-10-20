@@ -28,7 +28,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 4. 完成编辑后，手动运行下面的发布命令。普通保存文件不会自动提交或推送。
 5. 核验 GitHub 的目标提交和 Actions 部署结果后才算交付完成。Git 推送成功不等于网站部署成功。
 
-VS Code 的本地预览任务可以随文件夹打开而启动。Git 相关任务只在“任务：运行任务”中手动触发：`Git: Publish completed notes from this worktree` 和 `Git: Sync notes once` 均执行一次严格构建和发布，不会持续轮询。
+VS Code 的本地预览任务可以随文件夹打开而启动。Git 发布任务只在“任务：运行任务”中手动触发：`Git: Publish completed notes from this worktree` 执行一次严格构建和发布，不会持续轮询。
 
 本机桌面的“笔记单次同步”快捷方式调用主目录的 `publish-notes.ps1`，先严格构建，再提交、推送并核验远端。双击执行一轮；窗口保留结果，关闭窗口即可。没有内容改动时不会创建空提交。它不会安装后台任务；网站更新仍需等待 GitHub Actions 部署完成。
 
@@ -104,13 +104,13 @@ py -3.12 -m unittest discover -s tests -v
 | Remote main has changes | 停止同步、检查 `git status`，手工获取并整合远端变化后重试 |
 | Git 验证或网络失败 | 本地提交仍保留；恢复访问后重试 |
 | 推送成功但网站未更新 | 查看 Actions 的构建、同步测试和部署状态 |
-| 公式没有显示 | 检查 MathJax CDN 是否可访问；字体使用系统字体，不再请求 Google Fonts |
+| 公式没有显示 | 检查公式语法是否闭合；MathJax 与字体均已站内自托管，不依赖第三方 CDN 或 Google Fonts |
 
 `docs/原神.md` 保留旧文章地址入口，`docs/test.md` 保留原测试页面，两者不出现在主导航中。
 
 首页按课程、参考资料和写作指南组织。课程的具体章节进入课程概览，不需要把每一章都做成首页卡片；新栏目需要首页入口。首页隐藏侧栏，文章保留左上角抽屉和右侧目录。
 
-固体物理的可编辑文件在 `docs/courses/solid-state/`。`docs/固体物理.md` 由分章正文自动合并，兼容原有网址和章节锚点；不要直接修改生成文件。发布、构建会自动刷新，也可运行 `python scripts/course_content.py`。合并后的 Markdown 可在课程概览下载。
+固体物理的可编辑文件在 `docs/courses/solid-state/`。`docs/固体物理.md` 由分章正文按 `course.json` 自动合并，兼容原有网址和章节锚点；不要直接修改生成文件。发布、构建会自动刷新，也可运行 `python scripts/course_content.py`。合并后的 Markdown 与 Anki 自测记忆卡（CSV）可在课程概览及复习页下载。
 
 每次构建都会执行 `hooks/content_quality.py`，检查文章是否加入导航、首页是否包含栏目入口、页面元数据是否完整，以及站内链接、锚点和附件入口。遗漏会使构建失败，并显示具体文件。脚本仅在构建时运行，不启动后台同步。维护标记、自测题复用与目录约定见 [MAINTAINING.md](MAINTAINING.md)。
 

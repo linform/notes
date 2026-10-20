@@ -4,6 +4,9 @@ site/
 __pycache__/
 *.pyc
 
+# Local reference courseware (not auto-committed)
+ref/
+
 # Share just the VS Code automatic task definitions
 .vscode/*
 !.vscode/tasks.json

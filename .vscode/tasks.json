@@ -32,19 +32,6 @@
         "instancePolicy": "silent"
       },
       "presentation": { "reveal": "silent", "panel": "dedicated" }
-    },
-    {
-      "label": "Git: Sync notes once",
-      "type": "process",
-      "command": "powershell.exe",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy", "Bypass",
-        "-File", "${workspaceFolder}\\publish-notes.ps1"
-      ],
-      "options": { "cwd": "${workspaceFolder}" },
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated" }
     }
   ]
 }

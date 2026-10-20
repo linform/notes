@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -37,6 +39,9 @@ jobs:
 
       - name: Check dependencies
         run: python -m pip check
+
+      - name: Test content and link checks
+        run: python -m unittest discover -s tests -p "test_content_quality.py" -v
 
       - name: Build MkDocs
         run: python -m mkdocs build --strict
@@ -52,12 +57,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Test sync with local repositories
-        run: python -m unittest discover -s tests -v
+        shell: pwsh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          $runSyncTests = $true
+          if ($env:EVENT_NAME -in @('push', 'pull_request') -and $env:BASE_SHA -and $env:BASE_SHA -notmatch '^0+$') {
+            $changed = @(& git -c core.quotepath=false diff --name-only "$($env:BASE_SHA)..$($env:HEAD_SHA)" 2>$null)
+            if ($LASTEXITCODE -eq 0 -and $changed.Count -gt 0 -and @($changed | Where-Object { -not $_.StartsWith('docs/') }).Count -eq 0) {
+              Write-Host "Only docs/ changed ($($changed.Count) files); skipping Windows sync script tests."
+              $runSyncTests = $false
+            }
+          }
+          if ($runSyncTests) {
+            python -m unittest discover -s tests -v
+          }
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
