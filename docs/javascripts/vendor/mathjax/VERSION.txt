@@ -1,4 +1,20 @@
 MathJax 3.2.2 (es5 build), Apache License 2.0, see LICENSE.
 Source: https://registry.npmjs.org/mathjax/-/mathjax-3.2.2.tgz
-Included: tex-chtml.js, a11y/, input/tex/extensions/, output/chtml/fonts/woff-v2/.
-Self-hosted so formulas render without third-party CDN access.
+npm dist.integrity: sha512-Bt+SSVU8eBG27zChVewOicYs7Xsdt40qm4+UpHyX7k0/O9NliPc+x77k1/FEsPsjKPZGJvtRZM1vO+geW0OhGw==
+The release archive was checked against npm dist.integrity before copying.
+
+Included upstream resources:
+- tex-chtml.js (bundles TeX, CHTML, TeX fonts, menu, assistive MathML).
+- a11y/ (semantic enrichment, complexity, explorer, speech engine).
+- input/tex/extensions/ (all upstream TeX extension components).
+- input/mml.js and input/mml/ (MathML input, entities, MML3 extension).
+- output/chtml/fonts/woff-v2/ (all upstream CHTML font files).
+- output/svg.js and output/svg/ (SVG renderer and TeX glyph data).
+- sre/mathmaps/ (all upstream speech locales, base rules and Nemeth).
+
+This subset supports the CHTML default, both renderer choices and the
+accessibility options exposed by the built-in MathJax context menu.
+Only the initial CHTML bundle and fonts load for normal reading; other
+components and speech maps load on demand from the same site.
+Upstream code and JSON data are unchanged. Repository line endings and
+insignificant trailing whitespace in speech JSON files are normalized.

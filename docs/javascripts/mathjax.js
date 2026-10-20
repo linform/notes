@@ -1,6 +1,18 @@
 window.MathJax = {
   startup: {
     typeset: false,
+    ready() {
+      // MathJax 3.2.2's menu rerender must handle asynchronous speech retries.
+      // Upstream workaround: https://github.com/mathjax/MathJax/issues/3124#issuecomment-1804381865
+      const { mathjax } = MathJax._.mathjax;
+      const { STATE } = MathJax._.core.MathItem;
+      const { Menu } = MathJax._.ui.menu.Menu;
+      const rerender = Menu.prototype.rerender;
+      Menu.prototype.rerender = function (start = STATE.TYPESET) {
+        return mathjax.handleRetriesFor(() => rerender.call(this, start));
+      };
+      MathJax.startup.defaultReady();
+    },
   },
   tex: {
     inlineMath: [["\\(", "\\)"]],
