@@ -1,0 +1,4 @@
+MathJax 3.2.2 (es5 build), Apache License 2.0, see LICENSE.
+Source: https://registry.npmjs.org/mathjax/-/mathjax-3.2.2.tgz
+Included: tex-chtml.js, a11y/, input/tex/extensions/, output/chtml/fonts/woff-v2/.
+Self-hosted so formulas render without third-party CDN access.

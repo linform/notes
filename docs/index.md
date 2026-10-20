@@ -43,7 +43,7 @@ hide:
 
 选择章节继续　[晶体结构](courses/solid-state/structure.md) · [晶体结合](courses/solid-state/bonding.md) · [晶格振动](courses/solid-state/phonons.md) · [周期势与带隙](courses/solid-state/bloch.md)
 
-按需查阅　[习题解析](courses/solid-state/exercises.md) · [复习速查](courses/solid-state/review.md) · [课件订正](courses/solid-state/references.md) · [完整阅读版](固体物理.md)
+按需查阅　[习题解析](courses/solid-state/exercises.md) · [复习速查](courses/solid-state/review.md) · [概念标签](tags.md) · [课件订正](courses/solid-state/references.md) · [完整阅读版](固体物理.md)
 
 </div>
 
@@ -79,6 +79,7 @@ hide:
 
 ## 最近更新
 
+- **2026-10-20**：支持概念标签跨章检索、专业缩写悬停提示、自托管 MathJax 公式渲染与 Anki 记忆卡导出。
 - **2026-10-19**：固体物理改为分章阅读，加入章节自测、资料目录和完整 Markdown 下载。
 - **2026-10-18**：补充周期势、电子热容、紧束缚与密度泛函笔记。
 

@@ -472,7 +472,7 @@ notes/
 先查看快捷方式保留的结果窗口，或检查 VS Code 的任务输出：
 
 - `MkDocs: Start live preview`：本地网站构建是否成功。
-- `Git: Sync notes once` 或 `Git: Publish completed notes from this worktree`：是否通过校验并输出远端核验成功信息。
+- `Git: Publish completed notes from this worktree`：是否通过校验并输出远端核验成功信息。
 
 如果 Git 推送失败，不要直接强制推送或删除 `.git`。先检查终端报错。若远程和本地历史发生冲突，应先保留修改、整合差异，再重新运行单次发布。脚本会保留本地提交，但不会自动拉取或合并。
 
@@ -524,10 +524,10 @@ notes/
 | 问题 | 检查方法 |
 | --- | --- |
 | 修改后网页没有变化 | 文件是否保存？MkDocs 任务是否在运行？ |
-| 公式原样显示 `$...$` | 检查 `pymdownx.arithmatex`、MathJax 脚本和浏览器网络连接 |
+| 公式原样显示 `$...$` | 检查公式定界符是否配对、`pymdownx.arithmatex` 与站内自托管 MathJax 脚本是否正常加载 |
 | 图片不显示 | 检查图片是否在 `docs/` 中、相对路径和文件名大小写是否正确 |
 | 网站没有新增文章 | 新 `.md` 是否填写元数据并加入 `nav`？是否已推送并完成 Pages 部署？ |
-| GitHub 没更新 | 查看单次发布窗口或 `Git: Sync notes once` 输出，并核对 Actions 部署状态 |
+| GitHub 没更新 | 查看单次发布窗口或 `Git: Publish completed notes from this worktree` 输出，并核对 Actions 部署状态 |
 | 任务列表没变复选框 | 已启用；检查列表符号后空格及 `[ ]`／`[x]` 写法 |
 | 提示框语法未生效 | 已启用；检查 `!!!`／`???` 标记及正文缩进 |
 | 文章内容很长不好找 | 合理使用 `##`、`###` 标题，利用右侧目录 |

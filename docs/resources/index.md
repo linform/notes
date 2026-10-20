@@ -9,6 +9,7 @@ description: 按用途查阅课程参考文献和已保存的 PDF 附件。
 
 ## 课程资料
 
+- [按概念标签检索](../tags.md)：按倒格子、布里渊区、色散关系、态密度、热容等概念跨章定位。
 - [固体物理课件索引](../courses/solid-state/index.md#course-sources)：14 份原始 PPTX，共 551 页，可按章节下载；每份标注大小并保留原名。
 - [固体物理参考讲义与订正](../courses/solid-state/references.md)：课件订正与查证用途。
 - [固体物理参考书与全文](../courses/solid-state/references.md#reading-library)：Simon、Tong、Sigrist、Göhmann 官方完整 PDF，中文教材馆藏／出版社入口，以及 MIT DFT 讲义副本。

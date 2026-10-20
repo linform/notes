@@ -23,7 +23,9 @@ nav:
           - 复习速查与自测: courses/solid-state/review.md
           - 参考资料与订正: courses/solid-state/references.md
           - 完整阅读版: 固体物理.md
-  - 参考资料: resources/index.md
+  - 参考资料:
+      - resources/index.md
+      - 标签索引: tags.md
   - 写作与发布:
       - guides/index.md
       - Markdown 使用手册: Markdown使用说明.md
@@ -34,7 +36,8 @@ not_in_nav: |
   /test.md
 
 exclude_docs: |
-  /courses/solid-state/course.json
+  /courses/*/course.json
+  /includes/*
 
 hooks:
   - hooks/content_quality.py
@@ -63,6 +66,10 @@ theme:
         icon: material/weather-sunny
         name: 切换到浅色模式
   features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.path
     - navigation.sections
     - navigation.indexes
     - navigation.footer
@@ -70,37 +77,76 @@ theme:
     - toc.follow
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
     - content.action.edit
+    - content.tooltips
+    - content.footnote.tooltips
+    - content.tabs.link
 
 plugins:
   - search:
       lang:
         - zh
         - en
+      separator: '[\s\u200b\-]'
+  - tags
+  - git-revision-date-localized:
+      enable_creation_date: false
+      type: iso_date
+      timezone: Asia/Shanghai
+      locale: zh
+      fallback_to_build_date: true
+      strict: false
+      exclude:
+        - index.md
+        - 固体物理.md
+        - test.md
+        - 原神.md
 
 markdown_extensions:
+  - abbr
   - admonition
-  - pymdownx.details
-  - tables
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.superfences
   - attr_list
+  - def_list
+  - footnotes
   - md_in_html
+  - tables
   - toc:
       permalink: true
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.mark
+  - pymdownx.snippets:
+      base_path:
+        - docs
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra:
+  status:
+    已整理: 已整理：正文、推导与自测已核对
+    草稿: 草稿：正在整理，内容可能调整
+    待补充: 待补充：尚缺部分课件或推导
 
 extra_javascript:
   - javascripts/toc-toggle.js
   - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+  - javascripts/vendor/mathjax/tex-chtml.js
 
 extra_css:
   - stylesheets/extra.css

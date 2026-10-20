@@ -1,11 +1,13 @@
 ---
 title: 固体物理 · 复习速查与自测
 description: 概念联系、解题流程、易错点与可展开答案的闭卷自测。
+tags:
+  - 习题与自测
 ---
 
 # 复习速查与自测
 
-[课程概览](index.md) · [习题解析](exercises.md)
+[课程概览](index.md) · [习题解析](exercises.md) · <a href="../../../downloads/solid-state-anki.csv" download="固体物理-Anki自测卡.csv">下载 Anki 记忆卡（CSV）</a>
 
 <!-- course:body -->
 

@@ -552,3 +552,36 @@ body[data-md-color-scheme="slate"] .notes-home {
     transition: none;
   }
 }
+
+
+:root {
+  --md-status--done: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+  --md-status--draft: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg>');
+  --md-status--todo: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>');
+}
+
+.md-status--已整理::after {
+  -webkit-mask-image: var(--md-status--done);
+  mask-image: var(--md-status--done);
+}
+
+.md-status--草稿::after {
+  -webkit-mask-image: var(--md-status--draft);
+  mask-image: var(--md-status--draft);
+}
+
+.md-status--待补充::after {
+  -webkit-mask-image: var(--md-status--todo);
+  mask-image: var(--md-status--todo);
+}
+
+@media print {
+  .notes-toc-toggle,
+  .md-content__button {
+    display: none !important;
+  }
+
+  .md-typeset details {
+    break-inside: avoid;
+  }
+}

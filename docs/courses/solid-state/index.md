@@ -2,7 +2,10 @@
 title: 固体物理 · 课程概览
 description: 按课件学习固体物理：阅读路线、分章入口、学习目标与课件索引。
 status: 已整理
-updated: "2026-10-19"
+tags:
+  - 课程概览
+  - 倒格子
+  - 布里渊区
 ---
 
 # 固体物理
@@ -14,7 +17,7 @@ updated: "2026-10-19"
 - **第一次学习**：按下表从晶体结构开始；每页先看目标和前置知识，再读正文。
 - **跟随课件**：用下方 S1–S14 索引定位章节，正文保留幻灯片页码。
 - **准备复习**：从[复习速查与自测](review.md)检查薄弱点，再回到[习题解析](exercises.md)。
-- **连续阅读或保存**：[完整阅读版](../../固体物理.md)保留旧地址；<a href="../../downloads/solid-state.md" download="固体物理.md">下载合并后的 Markdown</a>。
+- **连续阅读或保存**：[完整阅读版](../../固体物理.md)保留旧地址；<a href="../../downloads/solid-state.md" download="固体物理.md">下载合并后的 Markdown</a> · <a href="../../downloads/solid-state-anki.csv" download="固体物理-Anki自测卡.csv">下载 Anki 记忆卡（CSV）</a>。
 
 ## 分章学习
 
