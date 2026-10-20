@@ -46,9 +46,9 @@ def on_pre_build(config):
     statuses = config['extra'].get('status') or {}
     for name, path in pages.items():
         text = path.read_text(encoding='utf-8')
-        front = text.split('---', 2)
+        front = re.match(r'\A---\n(.*?)\n---(?:\n|\Z)', text, flags=re.S)
         try:
-            meta = yaml.safe_load(front[1]) if len(front) == 3 and text.startswith('---\n') else {}
+            meta = yaml.safe_load(front[1]) if front else {}
         except yaml.YAMLError as error:
             errors.append(f'{name}: invalid metadata: {error}')
             continue

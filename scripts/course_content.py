@@ -77,8 +77,9 @@ def compose_edition(docs, course, plan):
         # Chapter assets are relative to courses/<name>; the edition stays at docs/.
         text = text.replace('(../../assets/', '(assets/')
         sections.append(entry.get('heading', '') + '\n\n' + text)
-    return (f'---\ntitle: {edition["title"]}\n'
-            f'description: {edition["description"]}\n'
+    # JSON strings are valid YAML scalars and preserve punctuation and line breaks.
+    return (f'---\ntitle: {json.dumps(edition["title"], ensure_ascii=False)}\n'
+            f'description: {json.dumps(edition["description"], ensure_ascii=False)}\n'
             'search:\n  exclude: true\n---\n\n'
             f'# {edition["heading"]}\n\n'
             f'> 完整阅读版由分章笔记自动合并。日常学习可从[课程概览](courses/{course.name}/index.md)进入；'

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.course_content import (
     anki_csv,
@@ -104,6 +105,67 @@ class ContentQualityTests(unittest.TestCase):
         self.assertIn('(https://example.com/notes/courses/solid-state/)', files['solid-state.md'])
         self.assertIn(r'What is \(E\)?', files['solid-state-anki.csv'])
         self.assertIn('Energy <b>value</b> <code>k</code>', files['solid-state-anki.csv'])
+
+    def test_complete_edition_metadata_preserves_punctuation_and_line_breaks(self):
+        course = self.root / 'docs/courses/quantum'
+        course.mkdir(parents=True)
+        metadata = {
+            'title': '量子力学: "入门" # 第一讲\n第二行',
+            'description': '说明: 含 # 号、"引号"和中文。\n---\nsearch: false',
+        }
+        (course / 'course.json').write_text(json.dumps({
+            'edition': {'output': 'quantum.md', 'heading': '量子力学', **metadata},
+            'parts': [],
+        }), encoding='utf-8')
+        text = compose(self.root / 'docs')['quantum.md']
+        front = text.split('---\n', 2)[1]
+        # Check the YAML-compatible JSON scalars even in the dependency-free sync job.
+        scalars = {}
+        for line in front.splitlines():
+            key, _, value = line.partition(': ')
+            if key in metadata:
+                scalars[key] = json.loads(value)
+        self.assertEqual(scalars, metadata)
+        try:
+            import yaml
+        except ImportError:
+            return
+        self.assertEqual(yaml.safe_load(front), {**metadata, 'search': {'exclude': True}})
+
+    def test_pre_build_accepts_generated_metadata_containing_dashes(self):
+        try:
+            import mkdocs
+            import yaml
+        except ImportError:
+            self.skipTest('MkDocs and PyYAML are only installed in the build environment')
+        from hooks import content_quality
+        from mkdocs.config import load_config
+
+        docs = self.root / 'docs'
+        course = docs / 'courses/quantum'
+        course.mkdir(parents=True)
+        (course / 'course.json').write_text(json.dumps({
+            'edition': {
+                'output': 'quantum.md',
+                'heading': '量子力学',
+                'title': '量子力学: "入门" # 第一讲\n第二行',
+                'description': '说明: 含 # 号、"引号"和中文。\n---\nsearch: false',
+            },
+            'parts': [],
+        }), encoding='utf-8')
+        (docs / 'index.md').write_text(
+            '---\ntitle: 首页\ndescription: 测试课程入口\n---\n[课程](quantum.md)\n',
+            encoding='utf-8',
+        )
+        config_path = self.root / 'mkdocs.yml'
+        config_path.write_text(
+            'site_name: Fixture\nnav:\n  - 首页: index.md\n  - 课程: quantum.md\n',
+            encoding='utf-8',
+        )
+        config = load_config(config_file=str(config_path))
+        with patch.object(content_quality, 'ROOT', self.root):
+            content_quality.on_pre_build(config)
+        self.assertTrue((docs / 'quantum.md').is_file())
 
     def test_missing_or_reversed_source_markers_cannot_lose_content_silently(self):
         for text in ('# no markers', '<!-- /course:body --><!-- course:body -->'):
