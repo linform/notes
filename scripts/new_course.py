@@ -54,14 +54,16 @@ tags:
 
 # {title}
 
-[复习与自测](review.md) · [完整阅读版](../../{title}.md) · [下载 Markdown](../../downloads/{slug}.md){{ download="{slug}.md" }} · [下载 Anki 卡（CSV）](../../downloads/{slug}-anki.csv){{ download="{slug}-anki.csv" }}
+<!-- Links to chapters stay outside course:body: the complete edition is saved in docs/. -->
+- [{first_chapter_title}](intro.md)：核心概念、基本假设与主要推导。
+- [复习速查与自测](review.md)：核心公式速查与闭卷自测题库。
+- **连续阅读或保存**：[完整阅读版](../../{title}.md) · <a href="../../downloads/{slug}.md" download="{title}.md">下载合并后的 Markdown</a> · <a href="../../downloads/{slug}-anki.csv" download="{title}-Anki自测卡.csv">下载 Anki 记忆卡（CSV）</a>
 
 <!-- course:body -->
 
-## 课程结构与阅读路线
+## 课程简介
 
-- [{first_chapter_title}](intro.md)：核心概念、基本假设与主要推导。
-- [复习速查与自测](review.md)：核心公式速查与闭卷自测题库。
+说明课程范围、主要参考资料与推荐阅读顺序。
 
 <!-- /course:body -->
 """
@@ -118,7 +120,7 @@ tags:
 
 # {title} · 复习速查与自测
 
-[返回课程概览](index.md) · [下载 Anki 记忆卡（CSV）](../../downloads/{slug}-anki.csv){{ download="{slug}-anki.csv" }}
+[返回课程概览](index.md) · <a href="../../../downloads/{slug}-anki.csv" download="{title}-Anki自测卡.csv">下载 Anki 记忆卡（CSV）</a>
 
 <!-- course:body -->
 
@@ -135,11 +137,12 @@ tags:
 """
     (course_dir / 'review.md').write_text(review_md, encoding='utf-8', newline='\n')
 
-    nav_snippet = f"""  - {title}:
-      - courses/{slug}/index.md
-      - {first_chapter_title}: courses/{slug}/intro.md
-      - 复习速查与自测: courses/{slug}/review.md
-      - 完整阅读版: {title}.md"""
+    # Indented for placement under the existing `  - 课程笔记:` section.
+    nav_snippet = f"""      - {title}:
+          - courses/{slug}/index.md
+          - {first_chapter_title}: courses/{slug}/intro.md
+          - 复习速查与自测: courses/{slug}/review.md
+          - 完整阅读版: {title}.md"""
     return {
         'course_dir': course_dir,
         'nav_snippet': nav_snippet,

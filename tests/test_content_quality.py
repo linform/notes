@@ -195,8 +195,11 @@ class ContentQualityTests(unittest.TestCase):
     def test_new_course_scaffold_integrates_with_course_pipeline(self):
         info = scaffold_course(self.root, 'quantum', '量子力学')
         self.assertTrue((info['course_dir'] / 'course.json').is_file())
+        self.assertTrue(info['nav_snippet'].startswith('      - 量子力学:'))
         editions = prepare(self.root)
         self.assertIn('量子力学.md', editions)
+        self.assertNotIn('(intro.md)', editions['量子力学.md'])
+        self.assertNotIn('(review.md)', editions['量子力学.md'])
         banks = quiz_sources(self.root / 'docs')
         self.assertIsNotNone(bank_for('courses/quantum/intro.md', banks))
         expanded = expand_quizzes((info['course_dir'] / 'intro.md').read_text(encoding='utf-8'), banks['courses/quantum/'])
@@ -204,6 +207,18 @@ class ContentQualityTests(unittest.TestCase):
         files = exports(self.root / 'docs', 'https://example.com/notes/')
         self.assertIn('quantum.md', files)
         self.assertIn('quantum-anki.csv', files)
+        # Verify download links from both index (depth 2) and review (depth 3) resolve cleanly.
+        site = self.root / 'site'
+        for name, content in files.items():
+            target = site / 'downloads' / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8')
+        (site / 'courses/quantum/review').mkdir(parents=True, exist_ok=True)
+        (site / 'courses/quantum/index.html').write_text(
+            (info['course_dir'] / 'index.md').read_text(encoding='utf-8'), encoding='utf-8')
+        (site / 'courses/quantum/review/index.html').write_text(
+            (info['course_dir'] / 'review.md').read_text(encoding='utf-8'), encoding='utf-8')
+        self.assertEqual(built_link_errors(site, '/notes/'), [])
         with self.assertRaises(FileExistsError):
             scaffold_course(self.root, 'quantum', '量子力学')
         with self.assertRaises(ValueError):
