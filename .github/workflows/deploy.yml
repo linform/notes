@@ -43,6 +43,9 @@ jobs:
       - name: Test content and link checks
         run: python -m unittest discover -s tests -p "test_content_quality.py" -v
 
+      - name: Test math startup and instant navigation
+        run: node --test tests/test_mathjax_lifecycle.js
+
       - name: Build MkDocs
         run: python -m mkdocs build --strict
 

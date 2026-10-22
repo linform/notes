@@ -15,7 +15,8 @@ from scripts.course_content import (
     prepare,
     quiz_sources,
 )
-from scripts.site_quality import built_link_errors, discovery_errors
+from scripts.site_quality import asset_size_errors, built_link_errors, discovery_errors
+from scripts.new_course import scaffold_course
 
 
 class ContentQualityTests(unittest.TestCase):
@@ -182,6 +183,31 @@ class ContentQualityTests(unittest.TestCase):
             expand_quizzes('<!-- quiz:q01 -->', review + review)
         with self.assertRaises(ValueError):
             anki_csv('<!-- question:q01 -->not a collapsible question<!-- /question -->', 'Deck', 'tag')
+
+    def test_asset_size_limits_catch_oversized_files_and_totals(self):
+        (self.root / 'small.bin').write_bytes(b'x' * 100)
+        self.assertEqual(asset_size_errors(self.root, max_single_bytes=200, max_total_bytes=500), [])
+        (self.root / 'huge.bin').write_bytes(b'x' * 300)
+        errors = asset_size_errors(self.root, max_single_bytes=200, max_total_bytes=350)
+        self.assertTrue(any('single-file limit' in e and 'huge.bin' in e for e in errors))
+        self.assertTrue(any('total size limit' in e for e in errors))
+
+    def test_new_course_scaffold_integrates_with_course_pipeline(self):
+        info = scaffold_course(self.root, 'quantum', '量子力学')
+        self.assertTrue((info['course_dir'] / 'course.json').is_file())
+        editions = prepare(self.root)
+        self.assertIn('量子力学.md', editions)
+        banks = quiz_sources(self.root / 'docs')
+        self.assertIsNotNone(bank_for('courses/quantum/intro.md', banks))
+        expanded = expand_quizzes((info['course_dir'] / 'intro.md').read_text(encoding='utf-8'), banks['courses/quantum/'])
+        self.assertIn('核心假设', expanded)
+        files = exports(self.root / 'docs', 'https://example.com/notes/')
+        self.assertIn('quantum.md', files)
+        self.assertIn('quantum-anki.csv', files)
+        with self.assertRaises(FileExistsError):
+            scaffold_course(self.root, 'quantum', '量子力学')
+        with self.assertRaises(ValueError):
+            scaffold_course(self.root, 'bad slug', '量子力学')
 
 
 if __name__ == '__main__':

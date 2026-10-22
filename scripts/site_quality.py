@@ -97,3 +97,28 @@ def built_link_errors(directory, base='/'):
         if target.is_file() and target.suffix.lower() in attachments and target.resolve() not in referenced:
             errors.append(f'Attachment has no reading link: {target.relative_to(root)}')
     return errors
+
+
+MAX_SINGLE_ASSET_BYTES = 20 * 1024 * 1024
+MAX_SITE_TOTAL_BYTES = 250 * 1024 * 1024
+
+
+def asset_size_errors(directory, max_single_bytes=MAX_SINGLE_ASSET_BYTES, max_total_bytes=MAX_SITE_TOTAL_BYTES):
+    """Guard against oversized single binary assets or runaway site size."""
+    root = Path(directory).resolve()
+    errors = []
+    total = 0
+    for target in sorted(root.rglob('*')):
+        if not target.is_file():
+            continue
+        size = target.stat().st_size
+        total += size
+        if size > max_single_bytes:
+            mb = size / (1024 * 1024)
+            limit_mb = max_single_bytes / (1024 * 1024)
+            errors.append(f'Asset exceeds single-file limit ({mb:.1f} MiB > {limit_mb:.1f} MiB): {target.relative_to(root)}')
+    if total > max_total_bytes:
+        total_mb = total / (1024 * 1024)
+        limit_mb = max_total_bytes / (1024 * 1024)
+        errors.append(f'Built site exceeds total size limit ({total_mb:.1f} MiB > {limit_mb:.1f} MiB)')
+    return errors

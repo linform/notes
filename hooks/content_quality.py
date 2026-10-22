@@ -11,7 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.course_content import bank_for, expand_quizzes, exports, prepare, quiz_sources
-from scripts.site_quality import discovery_errors, built_link_errors
+from scripts.site_quality import asset_size_errors, built_link_errors, discovery_errors
 
 log = logging.getLogger('mkdocs.content-quality')
 _banks = {}
@@ -89,6 +89,7 @@ def on_post_build(config):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding='utf-8')
     errors = built_link_errors(config.site_dir, urlsplit(config.site_url).path)
+    errors.extend(asset_size_errors(config.site_dir))
     if errors:
         raise PluginError('Built-site link checks failed:\n' + '\n'.join(errors))
-    log.info('Checked built links and anchors; %d course downloads are ready.', len(files))
+    log.info('Checked built links, anchors and asset sizes; %d course downloads are ready.', len(files))

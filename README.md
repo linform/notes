@@ -5,6 +5,7 @@
 - 网站：<https://linform.github.io/notes/>
 - 部署记录：<https://github.com/linform/notes/actions>
 - 写作说明：[Markdown 使用手册](docs/Markdown使用说明.md)
+- 维护约定：[MAINTAINING.md](MAINTAINING.md) · [AGENTS.md](AGENTS.md)
 
 ## 首次安装（Windows）
 
@@ -16,36 +17,13 @@ py -3.12 -m venv .venv
 powershell -NoProfile -ExecutionPolicy Bypass -File .\start-preview.ps1
 ```
 
-无需激活虚拟环境。预览地址以终端输出为准，默认通常是 `http://127.0.0.1:8000/notes/`。端口冲突时可使用 `-Address 127.0.0.1:8001`。
+无需激活虚拟环境。预览地址以终端输出为准，默认通常是 `http://127.0.0.1:8000/notes/`。端口冲突时可使用 `-Address 127.0.0.1:8001`。每个新克隆或工作树都需要创建自己的 `.venv`；它不受 Git 管理。
 
-每个新克隆或工作树都需要创建自己的 `.venv`；它不受 Git 管理。启动脚本在环境缺失时会显示安装命令。
+## 日常写作与单次发布
 
-## 日常写作
-
-1. 在 VS Code 中打开项目根目录，按需启用本地预览。
-2. 在 `docs/` 中创建或编辑 `.md`，保存后检查本地预览。
-3. 新文章填写 `title`、`description` 并加入 `mkdocs.yml` 的 `nav`。新栏目在首页添加入口；图片与附件放在 `docs/` 内，使用相对链接。
-4. 完成编辑后，手动运行下面的发布命令。普通保存文件不会自动提交或推送。
-5. 核验 GitHub 的目标提交和 Actions 部署结果后才算交付完成。Git 推送成功不等于网站部署成功。
-
-VS Code 的本地预览任务可以随文件夹打开而启动。Git 发布任务只在“任务：运行任务”中手动触发：`Git: Publish completed notes from this worktree` 执行一次严格构建和发布，不会持续轮询。
-
-本机桌面的“笔记单次同步”快捷方式调用主目录的 `publish-notes.ps1`，先严格构建，再提交、推送并核验远端。双击执行一轮；窗口保留结果，关闭窗口即可。没有内容改动时不会创建空提交。它不会安装后台任务；网站更新仍需等待 GitHub Actions 部署完成。
-
-## 后台常驻同步已关闭
-
-Windows 登录自启和异常恢复任务已撤销，VS Code 打开文件夹时也不会启动 Git 同步。仓库默认使用下节的手动发布流程；修改笔记后，按需发布即可。
-
-如果其他电脑以前安装过登录启动任务，可以运行下面的命令移除：
-
-```powershell
-# 停止并移除该仓库的自动启动任务
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install-auto-sync.ps1 -Uninstall
-```
-
-`install-auto-sync.ps1` 保留为可选管理工具，不会自行安装任何任务；只有用户明确重新要求时才启用常驻模式。
-
-## 从当前工作树发布已完成的笔记
+1. 在 `docs/` 中创建或编辑 `.md`（新建课程可用 `.\.venv\Scripts\python.exe scripts/new_course.py <slug> "<课程名>"` 生成脚手架）。
+2. 新文章填写 `title`、`description` 并加入 `mkdocs.yml` 的 `nav`；新栏目在首页添加入口；图片与附件放在 `docs/` 内并使用相对链接。
+3. 完成编辑后，双击桌面“笔记单次同步”快捷方式，或在终端运行：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1
@@ -54,64 +32,33 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-notes.ps1 -PythonPath 'C:\path\to\python.exe'
 ```
 
-也可以在 VS Code 的“任务：运行任务”选择 `Git: Publish completed notes from this worktree`。该任务只在明确运行时发布，不在打开文件夹时触发。
+4. 发布成功后，查看**本次 SHA 对应**的 [GitHub Actions](https://github.com/linform/notes/actions)，等待 `build`、`test-sync`、`deploy` 全部成功。
 
-发布命令适用于 `main`、功能分支和 detached HEAD：找到已检出的 `main`，确认 Git 状态和提交关系，严格构建，自动提交 `docs/` 和 `mkdocs.yml`，快进合并到主工作目录，正常推送，最后核验远端 SHA。没有原地切换分支或覆盖未保存文件的步骤；课件 `ref/` 等未跟踪内容不会被自动加入提交。
+发布命令适用于 `main`、功能分支和 detached HEAD：自动刷新课程完整阅读版、执行严格构建校验、仅提交 `docs/` 和 `mkdocs.yml`、快进合并到 `main` 并核验远端 SHA。若修改了项目脚本、测试或配置说明，先检查差异并明确提交这些任务文件，再加 `-IncludeCommittedProjectChanges` 发布已审核的提交。
 
-命令仅自动提交笔记。若本次任务修改项目脚本、测试或配置说明，先检查差异并明确提交这些任务文件，再加 `-IncludeCommittedProjectChanges` 发布已审核的提交。工作目录内未提交的非笔记改动仍会阻止发布。默认还会检查每一笔待推送提交，避免夹带未审核的项目改动。
+## 后台同步状态与底层脚本
 
-发布和单次同步共用每次 Git 操作的互斥锁，避免同时修改仓库。
+Windows 登录自启和异常恢复任务默认关闭，VS Code 打开文件夹时也不会启动 Git 同步。如其他电脑曾安装过登录启动任务，可运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\install-auto-sync.ps1 -Uninstall` 移除。
 
-遇到主目录未提交修改、合并／变基操作、分叉、远端领先、构建失败或推送失败时，命令以非零状态退出，并保留文件及已创建的提交。检查并整合差异后重试，不强推，也不覆盖用户修改。
+底层脚本 `auto-sync.ps1 -Once` 仅供在 `main` 上按需执行一轮 Git 同步（不执行 MkDocs 构建）；日常发布请优先使用 `publish-notes.ps1`。
 
-构建期间如继续修改、添加或删除笔记、附件或 `mkdocs.yml`，发布会停止并保留编辑内容。保存后重新运行即可，避免将未完成校验的内容提交到远端。
-
-发布成功后，查看 **本次 SHA 对应**的 [Actions](https://github.com/linform/notes/actions)，等待 `build`、`test-sync`、`deploy` 全部成功。根目录 `AGENTS.md` 已将远端同步和部署核验列为本仓库内容修改任务的完成条件。
-
-## 按需同步的范围与边界
-
-```powershell
-# 立即执行一轮；成功退出码 0，失败或不适用退出码 1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\auto-sync.ps1 -Once
-```
-
-这是保留的底层同步命令，不执行 MkDocs 构建。日常使用桌面快捷方式或上面的 `publish-notes.ps1`，获得发布前构建校验和提交范围检查。
-
-- 仅自动提交 `docs/` 和 `mkdocs.yml` 的新增、修改、删除。
-- README、依赖、脚本、测试和工作流的修改需要手工提交。推送 main 会包含该分支上所有尚未推送的提交。
-- 先检查 main 分支及 Git 操作状态；有合并、变基等操作或未解决冲突时跳过。
-- 同一 Windows 登录会话中，同一仓库只允许运行一个同步进程（包括关联工作树）。重复运行会提示并退出；进程退出后可再次手动执行，无需删除锁文件。
-- 本地提交后读取远端 main，仅允许正常快进推送，并核验远端确实收到目标提交。
-- 网络失败时保留本地提交，可在网络恢复后再次运行；远端领先或分叉时提示人工处理，不自动拉取、合并、变基或强制推送。
-- 仓库和网站公开，放入 `docs/` 的内容应适合公开发布。
-
-## 验证与部署
+## 验证与测试
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m mkdocs build --strict
-py -3.12 -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
-
-同步测试只创建临时本地 Git 仓库，不访问 GitHub。GitHub Actions 对 PR 和 main 执行严格构建与同步测试，只有 main 在两项检查通过后部署 Pages。首次使用仓库时，在 GitHub 的 Pages 设置中选择 GitHub Actions 作为发布来源。
 
 ## 常见问题
 
 | 情况 | 处理 |
 | --- | --- |
 | 缺少 `.venv` 或依赖 | 按首次安装命令创建环境、安装依赖 |
-| 当前是 detached HEAD 或功能分支 | 编辑完成后运行 `publish-notes.ps1`，无需原地切换到 main；失败时按具体提示整合差异后重试 |
+| 当前是 detached HEAD 或功能分支 | 编辑完成后运行 `publish-notes.ps1`，无需原地切换到 main；失败时按提示整合差异后重试 |
 | Remote main has changes | 停止同步、检查 `git status`，手工获取并整合远端变化后重试 |
 | Git 验证或网络失败 | 本地提交仍保留；恢复访问后重试 |
 | 推送成功但网站未更新 | 查看 Actions 的构建、同步测试和部署状态 |
 | 公式没有显示 | 检查公式语法是否闭合；MathJax 与字体均已站内自托管，不依赖第三方 CDN 或 Google Fonts |
 
-`docs/原神.md` 保留旧文章地址入口，`docs/test.md` 保留原测试页面，两者不出现在主导航中。
-
-首页按课程、参考资料和写作指南组织。课程的具体章节进入课程概览，不需要把每一章都做成首页卡片；新栏目需要首页入口。首页隐藏侧栏，文章保留左上角抽屉和右侧目录。
-
-固体物理的可编辑文件在 `docs/courses/solid-state/`。`docs/固体物理.md` 由分章正文按 `course.json` 自动合并，兼容原有网址和章节锚点；不要直接修改生成文件。发布、构建会自动刷新，也可运行 `python scripts/course_content.py`。合并后的 Markdown 与 Anki 自测记忆卡（CSV）可在课程概览及复习页下载。
-
-每次构建都会执行 `hooks/content_quality.py`，检查文章是否加入导航、首页是否包含栏目入口、页面元数据是否完整，以及站内链接、锚点和附件入口。遗漏会使构建失败，并显示具体文件。脚本仅在构建时运行，不启动后台同步。维护标记、自测题复用与目录约定见 [MAINTAINING.md](MAINTAINING.md)。
-
-宽屏右侧目录用细线与正文分隔，可点击“收起目录”释放阅读空间，再通过右侧的“展开目录”恢复。选择保存在当前浏览器中，刷新或切换文章后沿用；窄屏保持主题原有布局。交互在 `docs/javascripts/toc-toggle.js` 中维护，浏览器禁止存储时仍可切换，但不会跨页面记忆。
+页面组织、完整阅读版生成、题库复用与内容检查细节见 [MAINTAINING.md](MAINTAINING.md)。
