@@ -1,6 +1,6 @@
 ---
 title: 第四章（五）　密度泛函与自洽计算
-description: 固体物理分章笔记，包含学习目标、推导、课件定位、小结与自测。
+description: Hartree 与 Hartree-Fock 方法，Hohenberg-Kohn 定理与 Kohn-Sham 自洽方程，总能量双计数修正，以及平面波截断能、k 点采样与赝势方法。
 status: 已整理
 tags:
   - 近似方法

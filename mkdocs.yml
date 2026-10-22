@@ -145,7 +145,7 @@ extra:
 
 extra_javascript:
   - javascripts/toc-toggle.js
-  - javascripts/mathjax.js
+  - javascripts/mathjax.js?v=20261020-instant
   - javascripts/vendor/mathjax/tex-chtml.js
 
 extra_css:
