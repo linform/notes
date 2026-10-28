@@ -10,36 +10,151 @@ tags:
 
 # 固体物理
 
-课程内容整理至能带理论（六）。选择适合当前目标的阅读方式。
+课程内容整理至能带理论（六）。点击下方任意单元或小节直接进入阅读。
 
-## 从这里开始
+<div class="notes-section-jump" markdown="1">
 
-- **第一次学习**：按下表从晶体结构开始；每页先看目标和前置知识，再读正文。
-- **跟随课件**：用下方 S1–S14 索引定位章节，正文保留幻灯片页码。
-- **完成课件作业**：[作业题目与完整解析](exercises.md#homework-index)汇总 7 组作业，逐题列出原课件页码、推导和答案；预习任务及补充练习另列。
-- **准备复习**：从[复习速查与自测](review.md)检查薄弱点，再回到[习题解析](exercises.md)。
-- **连续阅读或保存**：[完整阅读版](../../固体物理.md)保留旧地址；<a href="../../downloads/solid-state.md" download="固体物理.md">下载合并后的 Markdown</a> · <a href="../../downloads/solid-state-anki.csv" download="固体物理-Anki自测卡.csv">下载 Anki 记忆卡（CSV）</a>。
+**快速入口**：[课件作业与解析（7 组）](exercises.md#homework-index) · [复习速查与闭卷自测](review.md#self-test) · [原始课件下载（S1–S14）](#course-sources) · [符号约定](#symbols) · [参考书与订正](references.md#reading-library) · [完整阅读版](../../固体物理.md) · <a href="../../downloads/solid-state.md" download="固体物理.md">下载 Markdown</a> · <a href="../../downloads/solid-state-anki.csv" download="固体物理-Anki自测卡.csv">下载 Anki 卡</a>
 
-## 分章学习
+</div>
 
-| 阅读单元 | 学习后应能做到 |
-| --- | --- |
-| [第一章　晶体结构](structure.md) | 区分晶格、基元、原胞和惯用胞。 |
-| [第二章　晶体结合](bonding.md) | 说明结合能的参考态、符号和计量单位。 |
-| [第三章　晶格振动](phonons.md) | 从一维链方程推导色散并检查长波与区边界极限。 |
-| [第四章（一）　单电子模型](electron-models.md) | 区分绝热、独立电子与单电子模型中的近似。 |
-| [第四章（二）　周期势与带隙](bloch.md) | 区分 Bloch 相位、周期部分和全样品周期边界条件。 |
-| [第四章（三）　电子统计与运动](electron-statistics.md) | 统一态密度的总量、体积和自旋约定。 |
-| [第四章（四）　紧束缚与石墨烯](tight-binding.md) | 从局域轨道、邻居和跃迁矩阵建立紧束缚模型。 |
-| [第四章（五）　密度泛函与自洽计算](dft.md) | 区分 Hartree、Hartree–Fock、HK 定理与 KS 辅助体系。 |
+## 分章与小节直达
 
-## 课件与参考书
+<div class="notes-unit-grid" markdown="1">
 
-[下载原始课件](#course-sources) · [参考书与公开讲义](references.md#reading-library)
+<div class="notes-unit-card" markdown="1">
 
-## 整理状态
+<span class="notes-unit-card__meta">第一章 · S1–S4（199 页）</span>
 
-现有 14 份课件、551 页已整理，明确标注的作业已逐页核对并补全解析。页面状态表示整理进度，不表示实际授课进度或所有结论均已独立审稿。后续电子输运与磁性专章尚无对应课件；收到资料后再补充。来源核对、课件订正和更新记录见[参考资料](references.md)。
+### [晶体结构](structure.md)
+
+区分晶格、基元、原胞和惯用胞，建立倒格子、第一布里渊区与衍射消光条件。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[1.1 晶格与基元](structure.md#11) [1.2 原胞与单胞](structure.md#12) [1.4 密勒指数](structure.md#14) [1.5 点群与空间群](structure.md#15) [1.8 倒格子](structure.md#18) [1.9 第一布里渊区](structure.md#19) [1.10 Bragg 与 Ewald 球](structure.md#110-bragg-laue-ewald) [1.11 结构因子与消光](structure.md#111)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第二章 · S5（44 页）</span>
+
+### [晶体结合](bonding.md)
+
+说明结合能的参考态、符号和计量单位，从势能曲线求平衡间距、压力与体积模量。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[2.1 结合能与约定](bonding.md#21) [2.2 电离能与电负性](bonding.md#22) [2.3 成键类型](bonding.md#23) [2.4 马德隆常数](bonding.md#24) [2.5 压力与体积模量](bonding.md#25)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第三章 · S6–S8（131 页）</span>
+
+### [晶格振动](phonons.md)
+
+从一维链推导色散并检查极限，掌握简正坐标、声子量子化及爱因斯坦、德拜热容模型。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[3.1 一维单原子链](phonons.md#31) [3.3 一维双原子链](phonons.md#33) [3.4 动力学矩阵](phonons.md#34) [3.5 声子量子化](phonons.md#35) [3.9 爱因斯坦模型](phonons.md#39) [3.10 德拜态密度](phonons.md#310) [3.11 德拜热容极限](phonons.md#311)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第四章（一） · S9（31 页）</span>
+
+### [单电子模型](electron-models.md)
+
+区分绝热、独立电子与单电子近似，求自由电子和势阱允许态并检验边界条件。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[4.1 三种近似](electron-models.md#41) [4.2 自由电子与归一化](electron-models.md#42) [4.3 无限深势阱](electron-models.md#43) [4.4 有限深势阱](electron-models.md#44) [4.5 走向周期晶体](electron-models.md#45)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第四章（二） · S10–S11（55 页）</span>
+
+### [周期势与带隙](bloch.md)
+
+区分 Bloch 相位、周期部分和边界条件，由中心方程寻找耦合，在简并处用矩阵求开隙。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[4.6 Bloch 定理](bloch.md#46-bloch) [4.7 化为原胞问题](bloch.md#47) [4.8 中心方程](bloch.md#48) [4.9 空晶格折叠](bloch.md#49) [4.10 非简并微扰](bloch.md#410) [4.11 简并微扰与带隙](bloch.md#411)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第四章（三） · S12（31 页）</span>
+
+### [电子统计与运动](electron-statistics.md)
+
+统一态密度的总量、体积和自旋约定，理解 Sommerfeld 低温热容、群速度与有效质量张量。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[4.12 电子态密度](electron-statistics.md#412) [4.13 费米面与化学势](electron-statistics.md#413) [4.14 Sommerfeld 展开](electron-statistics.md#414-sommerfeld) [4.15 填充与导电性](electron-statistics.md#415) [4.16 半经典运动与有效质量](electron-statistics.md#416) [4.17 Bloch 振荡](electron-statistics.md#417-bloch)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第四章（四） · S13（27 页）</span>
+
+### [紧束缚与石墨烯](tight-binding.md)
+
+从局域轨道、邻居和跃迁矩阵建立紧束缚模型，推导一维链、立方 s/p 带与石墨烯 Dirac 锥。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[4.18 局域轨道到能带](tight-binding.md#418) [4.19 一维链与立方 s 带](tight-binding.md#419-s) [4.20 立方 p 轨道跃迁](tight-binding.md#420-p) [4.21 石墨烯与 Dirac 锥](tight-binding.md#421-dirac)
+
+</div>
+
+</div>
+
+<div class="notes-unit-card" markdown="1">
+
+<span class="notes-unit-card__meta">第四章（五） · S14（33 页）</span>
+
+### [密度泛函与自洽计算](dft.md)
+
+区分 Hartree、HF、HK 定理与 KS 辅助体系，掌握总能量双计数修正、自洽与赝势方法。
+
+<div class="notes-unit-card__sections" markdown="1">
+
+[4.22 Hartree 与 HF](dft.md#422-hartree-hartreefock) [4.23 HK 定理](dft.md#423-hohenbergkohn) [4.24 KS 分解与总能量](dft.md#424-kohnsham) [4.25 自洽与平面波赝势](dft.md#425) [4.26 理解计算能带](dft.md#426)
+
+</div>
+
+</div>
+
+</div>
+
+## 整理状态与参考书
+
+现有 14 份课件、551 页已整理，明确标注的作业已逐页核对并补全解析。页面状态表示整理进度，不表示实际授课进度或所有结论均已独立审稿。后续电子输运与磁性专章尚无对应课件；收到资料后再补充。来源核对、课件订正和更新记录见[参考资料与订正](references.md)及[参考书与公开讲义](references.md#reading-library)。
 
 <!-- course:body -->
 

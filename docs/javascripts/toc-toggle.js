@@ -1,18 +1,11 @@
-/* Keep the theme's generated TOC, adding only a reader-controlled desktop toggle. */
+/* Keep the theme's generated TOC expanded by default; reader toggle is per-page only. */
 (() => {
-  const storageKey = "notes:toc-collapsed";
-  let collapsed = false;
-  try {
-    collapsed = localStorage.getItem(storageKey) === "true";
-  } catch (_) {
-    // The toggle still works when browser storage is unavailable.
-  }
-
   function initialize() {
     const sidebar = document.querySelector('.md-sidebar--secondary:not([hidden])');
     const nav = sidebar?.querySelector('.md-nav--secondary');
     if (!nav?.querySelector('a[href]') || sidebar.querySelector('.notes-toc-toggle')) return;
 
+    let collapsed = false;
     nav.id = 'notes-page-toc';
     const button = document.createElement('button');
     button.type = 'button';
@@ -30,11 +23,6 @@
     button.addEventListener('click', () => {
       collapsed = !collapsed;
       render();
-      try {
-        localStorage.setItem(storageKey, String(collapsed));
-      } catch (_) {
-        // Do not prevent reading when storage is blocked or full.
-      }
     });
     render();
   }

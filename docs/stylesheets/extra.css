@@ -206,108 +206,19 @@ body[data-md-color-scheme="default"] ::selection {
   color: var(--flexoki-ink);
 }
 
-/* Keep the article navigation in a drawer on desktop as well.
- * Material already supplies the drawer toggle, backdrop and mobile layout.
- * The secondary sidebar (page contents) keeps its normal responsive behavior.
- */
-@media screen and (min-width: 76.25em) {
-  .md-header__button[for="__drawer"] {
-    display: inline-block;
-  }
-
-  .md-header__button.md-logo {
-    display: none;
-  }
-
-  .md-sidebar--primary {
-    position: fixed;
-    top: 0 !important; /* Override the theme's inline sticky offset. */
-    left: -12.1rem;
-    width: 12.1rem;
-    height: 100% !important;
-    padding: 0;
-    background-color: var(--md-default-bg-color);
-    transform: translateX(0);
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform .25s cubic-bezier(.4, 0, .2, 1), visibility .25s;
-    z-index: 6;
-  }
-
-  [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary {
-    box-shadow: var(--md-shadow-z3);
-    transform: translateX(12.1rem);
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  /* Nested theme navigation may set visibility explicitly. */
-  [data-md-toggle="drawer"]:not(:checked) ~ .md-container .md-sidebar--primary * {
-    visibility: hidden;
-  }
-
-  .md-sidebar--primary .md-sidebar__scrollwrap {
-    height: 100% !important; /* The theme otherwise sizes this to the article. */
-    margin: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .md-sidebar--primary .md-sidebar__inner {
-    width: auto;
-    padding: 0;
-  }
-
-  .md-nav--primary > .md-nav__title {
-    position: relative;
-    padding: 1rem .8rem;
-    background-color: var(--md-primary-fg-color);
-    color: var(--md-primary-bg-color);
-    cursor: pointer;
-  }
-
-  .md-nav--primary > .md-nav__title::after {
-    content: "\00d7";
-    float: right;
-    font-size: 1rem;
-  }
-
-  .md-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: #0000008a;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .25s, visibility .25s;
-    z-index: 5;
-  }
-
-  [data-md-toggle="drawer"]:checked ~ .md-overlay {
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-@media screen and (min-width: 76.25em) and (prefers-reduced-motion: reduce) {
-  .md-sidebar--primary,
-  .md-overlay {
-    transition: none;
-  }
-}
-
-/* Reduce wide-screen outer margins; the fixed-width contents sidebar stays compact. */
+/* Wide-screen grid accommodates persistent primary nav, article, and secondary TOC. */
 .md-grid {
-  max-width: 68rem;
+  max-width: 76rem;
 }
 
-/* Give the article a little more room while keeping the desktop contents visible. */
+/* Give the article room while keeping the desktop contents comfortably legible. */
 .notes-toc-toggle {
   display: none;
 }
 
 @media screen and (min-width: 60em) {
   .md-sidebar--secondary {
-    width: 10.5rem;
+    width: 12.5rem;
   }
 
   .md-sidebar--secondary .md-sidebar__scrollwrap {
@@ -361,6 +272,201 @@ body[data-md-color-scheme="default"] ::selection {
     padding: .5rem .4rem;
     line-height: 1.6;
     word-break: break-all;
+  }
+}
+
+/* Top-of-page section jump grid (auto-generated for chapters) and quick jump bar */
+.md-typeset .notes-chapter-jump,
+.md-typeset .notes-section-jump {
+  margin: 1rem 0 1.4rem;
+  padding: .85rem 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .5rem;
+  background: var(--md-code-bg-color);
+}
+
+.md-typeset .notes-section-jump p {
+  margin: 0;
+  font-size: .72rem;
+  line-height: 1.85;
+}
+
+.md-typeset .notes-chapter-jump__title {
+  margin-bottom: .55rem;
+  color: var(--md-default-fg-color--light);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+.md-typeset .notes-chapter-jump__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  gap: .35rem .6rem;
+}
+
+.md-typeset .notes-chapter-jump__item {
+  display: block;
+  padding: .3rem .55rem;
+  border-radius: .3rem;
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color);
+  font-size: .7rem;
+  line-height: 1.45;
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+
+.md-typeset .notes-chapter-jump__item:hover,
+.md-typeset .notes-chapter-jump__item:focus-visible {
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color);
+}
+
+/* Course overview unit cards with direct section pills */
+.md-typeset .notes-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .9rem;
+  margin: 1rem 0 1.6rem;
+}
+
+.md-typeset .notes-unit-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .55rem;
+  background: var(--md-code-bg-color);
+  transition: border-color .18s;
+}
+
+.md-typeset .notes-unit-card:hover,
+.md-typeset .notes-unit-card:focus-within {
+  border-color: var(--md-accent-fg-color);
+}
+
+.md-typeset .notes-unit-card__meta {
+  color: var(--md-accent-fg-color);
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+.md-typeset .notes-unit-card h3 {
+  margin: .3rem 0 .35rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.md-typeset .notes-unit-card h3 a {
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .notes-unit-card h3 a:hover {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset .notes-unit-card p {
+  margin: 0 0 .75rem;
+  color: var(--md-default-fg-color--light);
+  font-size: .72rem;
+  line-height: 1.65;
+}
+
+.md-typeset .notes-unit-card__sections,
+.md-typeset .notes-unit-card__sections p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: 0;
+  margin-top: auto;
+}
+
+.md-typeset .notes-unit-card__sections a {
+  display: inline-block;
+  padding: .2rem .5rem;
+  border-radius: .28rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: .65rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.md-typeset .notes-unit-card__sections a:hover {
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color);
+}
+
+/* Home page 8-unit quick grid */
+.md-typeset .notes-home__units ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset .notes-home__units li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  margin: 0;
+  padding: .75rem .85rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .5rem;
+  background: var(--md-code-bg-color);
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.md-typeset .notes-home__units li:hover,
+.md-typeset .notes-home__units li:focus-within {
+  border-color: var(--notes-home-accent);
+  box-shadow: 0 .2rem .8rem #0000000a;
+}
+
+.md-typeset .notes-home__unit-num {
+  color: var(--notes-home-accent);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+.md-typeset .notes-home__unit-link {
+  color: var(--md-default-fg-color);
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.md-typeset .notes-home__unit-link::after {
+  position: absolute;
+  inset: 0;
+  border-radius: .5rem;
+  content: "";
+}
+
+.md-typeset .notes-home__unit-desc {
+  color: var(--md-default-fg-color--light);
+  font-size: .62rem;
+  line-height: 1.45;
+}
+
+@media screen and (max-width: 60em) {
+  .md-typeset .notes-home__units ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .notes-unit-grid,
+  .md-typeset .notes-home__units ul {
+    grid-template-columns: 1fr;
   }
 }
 

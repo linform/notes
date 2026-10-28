@@ -12,7 +12,7 @@ tags:
 
 <!-- course:body -->
 
-### 课件中需要辨析的写法
+## 课件中需要辨析的写法
 
 正文采用以下订正或明确限定条件，便于对照课件复习。
 
@@ -41,7 +41,7 @@ tags:
 | S14，第 19–20、23 页 | 外势符号、轨道本征值与总能量、交换关联导数 | 统一 $v_{\mathrm{ext}}<0$ 的吸引势；补全双计数修正；使用泛函导数 $\delta E_{xc}/\delta n$ |
 | S14，第 26–28 页 | 将某种赝势的匹配条件推广到全部构造 | 区分 NC、US、PAW，并检查芯价划分与数值收敛 |
 
-### 已检索的学习资料
+## 已检索的学习资料
 
 检索与复核日期：2026-10-18。公开讲义用于查证概念及借鉴组织方式；课程范围和正文推导以 S1–S14 为主，以下资料并不替代本课程课件。
 
@@ -61,13 +61,13 @@ tags:
 
 <span id="reading-library"></span>
 
-### 参考书与公开讲义：阅读和下载
+## 参考书与公开讲义：阅读和下载
 
 先读当前章节，再按以下主题补充。**“官方全文 PDF”链接指向作者或学校公开提供的完整文件**，可在浏览器中阅读并保存；“馆藏／出版社”入口提供版本信息或借阅渠道，不代表免费全文。未发现明确再分发许可的书籍和讲义保留官方链接，避免本站副本与作者更新脱节。链接核对日期：2026-10-19。
 
 <span id="simon"></span>
 
-#### Steven H. Simon · Lecture Notes for Solid State Physics
+### Steven H. Simon · Lecture Notes for Solid State Physics
 
 - **版本与入口**：Oxford，Hilary Term 2012，269 页。[官方全文 PDF](https://www-thphys.physics.ox.ac.uk/people/SteveSimon/condmat2012/LectureNotes2012.pdf)。这是 2012 年课程讲义，引用时与正式出版的 *The Oxford Solid State Basics* 区分。
 - **对应笔记**：晶体结合、晶格振动、单电子模型、电子统计。按目录中的 Chemical Bonding、Specific Heat、Drude / Sommerfeld 等主题查找。
@@ -75,7 +75,7 @@ tags:
 
 <span id="tong"></span>
 
-#### David Tong · Solid State Physics
+### David Tong · Solid State Physics
 
 - **版本与入口**：Cambridge，2017，131 页。[官方全文 PDF](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate.pdf) · [课程主页与习题](https://davidtong.org/teaching/solid-state-physics/)。
 - **按章阅读**：[第 2 章 Band Structure](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate2.pdf)对应晶格、倒格子、Bloch、弱周期势和紧束缚；[第 3 章 Electron Dynamics](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate3.pdf)对应费米面、石墨烯、半经典运动；[第 4 章 Phonons](https://davidtong.org/pdfs/teaching/solid-state-physics/solidstate4.pdf)对应一维链与声子量子化。
@@ -83,14 +83,14 @@ tags:
 
 <span id="sigrist"></span>
 
-#### Manfred Sigrist · Solid State Theory
+### Manfred Sigrist · Solid State Theory
 
 - **版本与入口**：ETH Zürich，2014，165 页。[官方全文 PDF](https://edu.itp.phys.ethz.ch/fs14/sst/Lecture-Notes.pdf) · [课程归档、Slides 与习题](https://edu.itp.phys.ethz.ch/fs14/sst/)。
 - **对应笔记**：周期势、紧束缚及电子理论的进一步学习；适合完成本课程基本推导后阅读。
 
 <span id="gohmann"></span>
 
-#### Frank Göhmann · Introduction to Solid State Physics
+### Frank Göhmann · Introduction to Solid State Physics
 
 - **版本与入口**：2021，arXiv:2101.01780v1，116 页。[官方全文 PDF](https://arxiv.org/pdf/2101.01780v1) · [摘要、版本与许可](https://arxiv.org/abs/2101.01780)。
 - **对应笔记**：晶格振动、电子模型及准粒子概念。重在理解简化模型为什么成立。
@@ -98,7 +98,7 @@ tags:
 
 <span id="chinese-books"></span>
 
-#### 中文教材
+### 中文教材
 
 | 教材 | 版本核对与获取 | 对应阅读 |
 | --- | --- | --- |
@@ -109,14 +109,14 @@ tags:
 
 <span id="iucr"></span>
 
-#### 对称性与固体化学辅助资料
+### 对称性与固体化学辅助资料
 
 - **L. S. Dent Glasser，IUCr *Symmetry***：[官方网页全文](https://www.iucr.org/what-we-do/education/pamphlets/symmetry) · [官方 PDF，20 页](https://www.iucr.org/sites/default/files/2026-03/pamphlet13.pdf)。对应晶体结构的对称操作入门。
 - **MIT OCW，3.091SC，Fall 2010**：[讲义目录与 PDF 下载](https://ocw.mit.edu/courses/3-091sc-introduction-to-solid-state-chemistry-fall-2010/resources/lecture-notes/)。配合晶体结构、成键与衍射阅读，注意这门课以固体化学为主。
 
 <span id="mit-dft"></span>
 
-#### MIT OCW · DFT、平面波与赝势讲义
+### MIT OCW · DFT、平面波与赝势讲义
 
 - **课程**：Gerbrand Ceder、Nicola Marzari，*3.320 Atomistic Computer Modeling of Materials*，Spring 2005，Lecture 8（文件 `3_01.pdf`），25 页。
 - **文件**：[本站 PDF 阅读副本](../../assets/solid-state/readings/mit-3-320-dft.pdf) · [官方介绍与下载](https://ocw.mit.edu/courses/3-320-atomistic-computer-modeling-of-materials-sma-5107-spring-2005/resources/3_01/)。对应密度泛函、自洽计算、平面波和赝势。
@@ -124,7 +124,7 @@ tags:
 
 <span id="papers"></span>
 
-#### 原始论文与计算工具
+### 原始论文与计算工具
 
 - **Kohn–Sham（1965）**：[出版方 DOI 入口](https://doi.org/10.1103/PhysRev.140.A1133)，用于核对 KS 自洽方程。全文访问条件以出版方为准。
 - **Sham–Schlüter（1983）**：[出版方 DOI 入口](https://doi.org/10.1103/PhysRevLett.51.1888)，用于区分 KS 本征谱与基本带隙。全文访问条件以出版方为准。

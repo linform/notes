@@ -13,12 +13,11 @@ nav:
           - 第一章 · 晶体结构: courses/solid-state/structure.md
           - 第二章 · 晶体结合: courses/solid-state/bonding.md
           - 第三章 · 晶格振动: courses/solid-state/phonons.md
-          - 第四章 · 能带理论:
-              - 单电子模型: courses/solid-state/electron-models.md
-              - 周期势与带隙: courses/solid-state/bloch.md
-              - 电子统计与运动: courses/solid-state/electron-statistics.md
-              - 紧束缚与石墨烯: courses/solid-state/tight-binding.md
-              - 密度泛函与自洽计算: courses/solid-state/dft.md
+          - 第四章（一） · 单电子模型: courses/solid-state/electron-models.md
+          - 第四章（二） · 周期势与带隙: courses/solid-state/bloch.md
+          - 第四章（三） · 电子统计与运动: courses/solid-state/electron-statistics.md
+          - 第四章（四） · 紧束缚与石墨烯: courses/solid-state/tight-binding.md
+          - 第四章（五） · 密度泛函与自洽计算: courses/solid-state/dft.md
           - 习题与解析: courses/solid-state/exercises.md
           - 复习速查与自测: courses/solid-state/review.md
           - 参考资料与订正: courses/solid-state/references.md
@@ -69,6 +68,8 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.path
     - navigation.sections
     - navigation.indexes

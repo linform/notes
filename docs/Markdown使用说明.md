@@ -5,8 +5,10 @@ description: 笔记写作语法、目录规则及手动发布的完整操作说�
 
 # Markdown 日常笔记使用手册
 
-> 适用环境：Windows + VS Code + MkDocs Material + GitHub Pages  
-> 本文位于项目的 `docs/Markdown使用说明.md`，可从网站左上角的三横菜单访问。  
+> 适用环境：Windows + VS Code + MkDocs Material + GitHub Pages
+>
+> 本文位于项目的 `docs/Markdown使用说明.md`，可从顶部“写作与发布”栏目访问。
+>
 > **阅读方法**：每节先看 Markdown 写法，再看说明。复选框、提示框和折叠答案已启用；未配置的扩展会单独注明。
 
 ---

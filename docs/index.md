@@ -31,19 +31,30 @@ hide:
 
 ### [固体物理](courses/solid-state/index.md)
 
-从晶体结构、晶体结合和晶格振动，走向周期势、电子统计、紧束缚与密度泛函。每个学习单元包含目标、正文、小结和自测。
+从晶体结构、晶体结合和晶格振动，走向周期势、电子统计、紧束缚与密度泛函。点击课程卡片查看章节与小节，或从下方直接进入任意学习单元。
 
-<div class="notes-file__bottom"><span>14 份课件 · 8 个学习单元 · 已整理至能带理论（六）</span><span aria-hidden="true">查看课程 ↗</span></div>
+<div class="notes-file__bottom"><span>14 份课件 · 8 个学习单元 · 已整理至能带理论（六）</span><span aria-hidden="true">查看课程与小节 ↗</span></div>
 
 </div>
+
+</div>
+
+<div class="notes-home__units" markdown="1">
+
+- <span class="notes-home__unit-num">第一章</span>[晶体结构](courses/solid-state/structure.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">晶格 · 倒格子 · 布里渊区 · 衍射</span>
+- <span class="notes-home__unit-num">第二章</span>[晶体结合](courses/solid-state/bonding.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">结合能 · 马德隆常数 · 体积模量</span>
+- <span class="notes-home__unit-num">第三章</span>[晶格振动](courses/solid-state/phonons.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">色散关系 · 声子 · 德拜热容</span>
+- <span class="notes-home__unit-num">第四章（一）</span>[单电子模型](courses/solid-state/electron-models.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">三种近似 · 自由电子 · 势阱</span>
+- <span class="notes-home__unit-num">第四章（二）</span>[周期势与带隙](courses/solid-state/bloch.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">Bloch 定理 · 中心方程 · 简并开隙</span>
+- <span class="notes-home__unit-num">第四章（三）</span>[电子统计与运动](courses/solid-state/electron-statistics.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">态密度 · 电子热容 · 有效质量</span>
+- <span class="notes-home__unit-num">第四章（四）</span>[紧束缚与石墨烯](courses/solid-state/tight-binding.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">局域轨道 · s/p 带 · Dirac 锥</span>
+- <span class="notes-home__unit-num">第四章（五）</span>[密度泛函与自洽计算](courses/solid-state/dft.md){ .notes-home__unit-link }<span class="notes-home__unit-desc">HF · HK/KS 方程 · 平面波赝势</span>
 
 </div>
 
 <div class="notes-home__shortcuts" markdown="1">
 
-选择章节继续　[晶体结构](courses/solid-state/structure.md) · [晶体结合](courses/solid-state/bonding.md) · [晶格振动](courses/solid-state/phonons.md) · [周期势与带隙](courses/solid-state/bloch.md)
-
-按需查阅　[习题解析](courses/solid-state/exercises.md) · [复习速查](courses/solid-state/review.md) · [概念标签](tags.md) · [课件订正](courses/solid-state/references.md) · [完整阅读版](固体物理.md)
+按需查阅　[习题解析（7 组作业）](courses/solid-state/exercises.md#homework-index) · [复习速查与闭卷自测](courses/solid-state/review.md#self-test) · [概念标签](tags.md) · [课件订正与参考书](courses/solid-state/references.md) · [完整阅读版](固体物理.md)
 
 </div>
 
