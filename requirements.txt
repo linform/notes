@@ -1,7 +1,7 @@
 # Keep MkDocs on 1.6.x: MkDocs 2.x removes the plugin and theme systems used by
 # Material for MkDocs. Evaluate Zensical before any framework migration.
 babel==2.18.0
-backrefs==8.0
+backrefs==8.1
 certifi==2026.7.22
 charset-normalizer==3.5.2
 click==8.5.0
