@@ -78,7 +78,7 @@ class ContentQualityTests(unittest.TestCase):
         }), encoding='utf-8')
         chapter = course / 'a.md'
         chapter.write_text(
-            '# Page\n<!-- course:body -->\n![fig](../../assets/fig.png)\nformula $(x)$\n<!-- /course:body -->\nExtra footer',
+            '# Page\n<!-- course:body -->\n## 1.1 Sub\n![fig](../../assets/fig.png)\nformula $(x)$\n<!-- /course:body -->\nExtra footer',
             encoding='utf-8',
         )
         (course / 'review.md').write_text(
@@ -86,7 +86,7 @@ class ContentQualityTests(unittest.TestCase):
             encoding='utf-8',
         )
         result = prepare(self.root)['固体物理.md']
-        self.assertIn('## One\n\n![fig](assets/fig.png)\nformula $(x)$', result)
+        self.assertIn('## One\n\n### 1.1 Sub\n![fig](assets/fig.png)\nformula $(x)$', result)
         self.assertNotIn('Extra footer', result)
         target = self.root / 'docs/固体物理.md'
         timestamp = target.stat().st_mtime_ns

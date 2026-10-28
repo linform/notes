@@ -28,7 +28,7 @@
 
 ## 前端交互与依赖基线
 
-- **右侧目录折叠**：宽屏右侧目录用细线与正文分隔，可通过 `docs/javascripts/toc-toggle.js` 提供的“收起／展开目录”按钮切换并跨页面记忆状态（窄屏保持主题默认抽屉布局）。
+- **桌面端常驻导航与页内目录**：宽屏（≥76.25em）常驻显示左侧课程章节导航及顶部栏目标签（`navigation.tabs`）；右侧页内目录默认展开，可通过 `docs/javascripts/toc-toggle.js` 提供的“收起／展开目录”按钮在当前页面按需切换（不跨页面持久隐藏，窄屏保持主题默认抽屉布局）。章节页在构建时由 `hooks/content_quality.py` 自动提取编号 `##` 小节并生成页首小节直达网格。
 - **MathJax 自托管与即时导航**：公式渲染使用 `docs/javascripts/vendor/mathjax/` 下自托管的 MathJax 3.2.2（含 CHTML/SVG 渲染器与 SRE 无障碍语音规则，不依赖第三方 CDN），由 `docs/javascripts/mathjax.js` 配合 Material 的 `navigation.instant` 在切换文章时清理 CHTML 样式缓存并串行重排，生命周期回归测试位于 `tests/test_mathjax_lifecycle.js`。
 - **框架版本约束**：MkDocs 保持在 `1.6.x`（MkDocs 2.x 移除了 Material 依赖的插件与主题系统）；迁移至 Zensical 前须先确认 `tags`、`git-revision-date-localized` 及构建钩子 `hooks/content_quality.py` 的等价替代方案。
 

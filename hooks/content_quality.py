@@ -6,6 +6,7 @@ import sys
 from urllib.parse import urlsplit
 
 from mkdocs.exceptions import PluginError
+import markdown as md_lib
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,7 +67,35 @@ def on_pre_build(config):
     log.info('Checked navigation, home entries and metadata for %d pages.', len(pages))
 
 
+def _inject_chapter_jump(markdown):
+    """Insert a compact section jump grid before <!-- course:body --> when numbered ## sections exist."""
+    if '<!-- course:body -->' not in markdown or 'notes-chapter-jump' in markdown:
+        return markdown
+    pre, rest = markdown.split('<!-- course:body -->', 1)
+    mid, _ = rest.split('<!-- /course:body -->', 1)
+    if not re.search(r'^##\s+\d+\.\d+\s+', mid, flags=re.M):
+        return markdown
+    parser = md_lib.Markdown(extensions=['toc', 'attr_list'])
+    parser.convert(markdown)
+    items = []
+    for token in parser.toc_tokens:
+        for child in ([token] if token['level'] == 2 else []) + [c for c in token.get('children', []) if c['level'] == 2]:
+            if re.match(r'^\d+\.\d+\s+', child['name']):
+                items.append(f'<a class="notes-chapter-jump__item" href="#{child["id"]}">{child["name"]}</a>')
+    if not items:
+        return markdown
+    nav_html = (
+        '<nav class="notes-chapter-jump" aria-label="本章小节直达">'
+        '<div class="notes-chapter-jump__title">本章小节直达（点击跳转）</div>'
+        '<div class="notes-chapter-jump__grid">' + ''.join(items) + '</div>'
+        '</nav>\n\n'
+    )
+    return pre + nav_html + '<!-- course:body -->' + rest
+
+
 def on_page_markdown(markdown, page, config, files):
+    if page.file.src_uri.startswith('courses/'):
+        markdown = _inject_chapter_jump(markdown)
     if '<!-- quiz:' not in markdown:
         return markdown
     review = bank_for(page.file.src_uri, _banks)

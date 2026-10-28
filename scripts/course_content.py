@@ -59,6 +59,30 @@ def load_plan(course):
     return json.loads((Path(course) / 'course.json').read_text(encoding='utf-8'))
 
 
+def shift_headings(text, delta=1):
+    """Demote Markdown ATX headings outside fenced code blocks by ``delta`` levels."""
+    if not delta:
+        return text
+    lines = []
+    fence = None
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        match_fence = re.match(r'^(`{3,}|~{3,})', stripped)
+        if match_fence:
+            marker = match_fence[1]
+            if fence is None:
+                fence = marker
+            elif stripped.startswith(fence):
+                fence = None
+            lines.append(line)
+            continue
+        if fence is None and re.match(r'^#{1,5}\s', line):
+            lines.append('#' * delta + line)
+        else:
+            lines.append(line)
+    return '\n'.join(lines)
+
+
 def compose_edition(docs, course, plan):
     docs, course = Path(docs), Path(course)
     edition = plan['edition']
@@ -76,6 +100,8 @@ def compose_edition(docs, course, plan):
             raise ValueError(f'{entry["file"]}: {error}') from error
         # Chapter assets are relative to courses/<name>; the edition stays at docs/.
         text = text.replace('(../../assets/', '(assets/')
+        if 'heading' in entry:
+            text = shift_headings(text, entry.get('shift_headings', 1))
         sections.append(entry.get('heading', '') + '\n\n' + text)
     # JSON strings are valid YAML scalars and preserve punctuation and line breaks.
     return (f'---\ntitle: {json.dumps(edition["title"], ensure_ascii=False)}\n'
